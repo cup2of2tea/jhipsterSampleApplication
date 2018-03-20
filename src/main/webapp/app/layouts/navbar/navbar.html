@@ -8,8 +8,9 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                <img class="logo-img" src="content/images/logo-jhipster.png" alt="logo"/>
-                <span>JhipsterSampleApplication</span> <span class="navbar-version">v{{VERSION}}</span>
+                <img class="logo-img" src="content/images/logo-jhipster.png" alt="logo" />
+                <span>JhipsterSampleApplication</span>
+                <span class="navbar-version">v{{VERSION}}</span>
             </a>
         </div>
         <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
@@ -35,6 +36,86 @@
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                     </ul>
                 </li>
+                <li ng-class="{active: vm.$state.includes('d3')}" uib-dropdown class="dropdown pointer">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-d3">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                Demo d3
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter1" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 1</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter2" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 2</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter3" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 3</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter4" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 4</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter5" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 5</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter6" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 6</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter7" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 7</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter8" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 8</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter9" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 9</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter10" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 10</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="true" uib-dropdown class="dropdown pointer">
+                            <a ui-sref="chapter11" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                <span>Chapitre 11</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
                         <span>
@@ -78,7 +159,8 @@
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" uib-dropdown class="dropdown pointer">
+
+                <li ng-class="{active: vm.$state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="admin-menu">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>
