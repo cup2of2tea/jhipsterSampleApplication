@@ -22,29 +22,28 @@
             .attr("height", h);
 
         d3.json("data/flare.json", function (root) {
-            var links = d3.hierarchy(root).links().map(function (link) {
-                delete link.source.children;
-                delete link.source.parent;
-                delete link.target.children;
-                delete link.target.parent;
-                return link;
-            });
-            var nodes = flatten(root).map(function (node) {
-                delete node.children;
-                delete node.parent;
-                return node;
-            });;
+
+            var links = [];
+
+            var nodes = flatten(root);
             var range = nodes.length;
-            var links = d3.range(0, range).map(function () { return { source: nodes[~~d3.randomUniform(range)()], target: nodes[~~d3.randomUniform(range)()] } })
-            console.log(links);
-            //return;
+            // var links = d3.range(0, range).map(function () { return { source: nodes[~~d3.randomUniform(range)()], target: nodes[~~d3.randomUniform(range)()] } })
+
             nodes = nodes.map(function (node) {
                 node.label = node.name;
+                node.id = node.name;
+                var p = node.parent;
+                if (p) {
+                    links.push({ source: node.name, target: p.name, value: Math.floor(Math.random() * 100), index: links.length });
+                }
                 return node;
             });
+            console.log(links);
+            console.log(nodes);
+            //return;
             var simulation = d3.forceSimulation()
                 .force("link", d3.forceLink().id(function (d) {
-                    return d.index
+                    return d.id;
                 }))
                 .force("charge", d3.forceManyBody())
                 .force("y", d3.forceY(0))
@@ -78,12 +77,12 @@
                 node.attr("cx", function (d) { return d.x; })
                     .attr("cy", function (d) { return d.y; });
             });
+            simulation
+                .nodes(nodes);
 
             simulation
                 .force("link")
                 .links(links);
-            simulation
-                .nodes(nodes);
             function dragstarted(d) {
                 if (!d3.event.active) simulation.alphaTarget(0.3).restart();
                 d.fx = d.x;
