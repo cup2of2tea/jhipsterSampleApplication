@@ -28,6 +28,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/messageformat/messageformat.js',
             'src/main/webapp/bower_components/d3/d3.js',
             'src/main/webapp/bower_components/angularjs-slider/dist/rzslider.js',
+            'src/main/webapp/bower_components/material-design-icons/index.js',
             'src/main/webapp/bower_components/angular/angular.js',
             'src/main/webapp/bower_components/angular-aria/angular-aria.js',
             'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',

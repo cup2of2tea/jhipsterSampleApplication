@@ -207,9 +207,33 @@
         }
 
         $scope.valueDate = dates[0];
+        
 
         function between(dateDeb, dateEnd, dateBetween) {
             return dateBetween >= dateDeb && dateBetween <= dateEnd;
+        }
+
+
+        function computeDisplayableObjects() {
+            boxes = boxes.map(function (box) {
+                if (between(box.dates_application.start, box.dates_application.end, $scope.valueDate)) {
+                    box.display = true;
+                } else {
+                    box.display = false;
+                }
+                return box;
+            });
+            links = links.map(function (link) {
+                if (between(link.dates_application.start, link.dates_application.end, $scope.valueDate)
+                    && between(link.source.dates_application.start, link.source.dates_application.end, $scope.valueDate)
+                    && between(link.target.dates_application.start, link.target.dates_application.end, $scope.valueDate)
+                ) {
+                    link.display = true;
+                } else {
+                    link.display = false;
+                }
+                return link;
+            });
         }
 
 
@@ -223,28 +247,7 @@
                     return '';
                 },
                 onChange: function () {
-                    boxes = boxes.map(function (box) {
-                        console.log(box.dates_application);
-                        console.log(box.dates_application);
-                        console.log($scope.valueDate);
-                        if (between(box.dates_application.start, box.dates_application.end, $scope.valueDate)) {
-                            box.display = true;
-                        } else {
-                            box.display = false;
-                        }
-                        return box;
-                    });
-                    links = links.map(function (link) {
-                        if (between(link.dates_application.start, link.dates_application.end, $scope.valueDate)
-                            && between(link.source.dates_application.start, link.source.dates_application.end, $scope.valueDate)
-                            && between(link.target.dates_application.start, link.target.dates_application.end, $scope.valueDate)
-                        ) {
-                            link.display = true;
-                        } else {
-                            link.display = false;
-                        }
-                        return link;
-                    });
+                    computeDisplayableObjects();
                     redraw();
                 }
             }
@@ -387,8 +390,10 @@
 
 
         var vm = this;
-        var w = 1280,
+        var w = 1700,
             h = 800;
+
+        $scope.transform = {x:0,y:0,k:1};
 
         var chartWidth = w;
         var chartHeight = h;
@@ -443,11 +448,22 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-            $scope.transfom = d3.event.transform;
-            g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
+            $scope.transform = d3.event.transform;
+            g.attr("transform", "translate(" +  $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
         }
-
+        
         svg.call(zoom);
+        
+        $scope.initZoom = function() {
+            $scope.transform = {x:0,y:0,k:1};
+            g.attr("transform","translate(0,0)scale(1)");
+        }
+        
+        
+        $scope.zoom = function(ratio) {
+            $scope.transform.k = ratio * $scope.transform.k;
+            g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
+        }
 
 
 
@@ -486,6 +502,8 @@
                     return (link.target.coord.y1 + link.target.coord.y2) / 2;
                 });
 
+            
+
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
@@ -499,7 +517,10 @@
         initLinks(links);
         initBoxes(boxes);
         initLabelLinks(links);
-        // redraw();
+
+        computeDisplayableObjects();
+        redraw();
+
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
 
