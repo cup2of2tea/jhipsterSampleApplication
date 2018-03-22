@@ -12,189 +12,96 @@
             "app": [
                 {
                     "id": "1",
-                    "name": "Back-Office",
+                    "name": "App 1",
                     "coord": {
-                        "x": "627",
-                        "y": "23"
+                        "x": "0",
+                        "y": "0"
                     },
-                    "cat": "BO",
+                    "cat": "cat 1",
                     "dates_application": {
-                        "start": "2019-01-01",
-                        "end": "2022-01-01"
-                    },
-                    "width": "200",
-                    "height": "100"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
+                    }
                 },
                 {
                     "id": "2",
-                    "name": "Manufacturing ERP",
+                    "name": "App 2",
                     "coord": {
-                        "x": "962",
-                        "y": "94"
+                        "x": "100",
+                        "y": "0"
                     },
-                    "cat": "MRP",
+                    "cat": "cat 1",
                     "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2022-01-01"
-                    },
-                    "width": "200",
-                    "height": "100"
+                        "start": "2017-02-01",
+                        "end": "2018-04-01"
+                    }
                 },
                 {
                     "id": "3",
-                    "name": "TMS",
+                    "name": "App 3",
                     "coord": {
-                        "x": "291",
-                        "y": "220"
+                        "x": "0",
+                        "y": "100"
                     },
-                    "cat": "DIS",
+                    "cat": "cat 2",
                     "dates_application": {
-                        "start": "2020-01-01",
-                        "end": "2022-01-01"
-                    },
-                    "width": "200",
-                    "height": "100"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
+                    }
                 },
                 {
                     "id": "4",
-                    "name": "WMS",
+                    "name": "App 4",
                     "coord": {
-                        "x": "533",
-                        "y": "357"
+                        "x": "100",
+                        "y": "100"
                     },
-                    "cat": "DIS",
+                    "cat": "cat 3",
                     "dates_application": {
-                        "start": "2020-01-01",
-                        "end": "2022-01-01"
-                    },
-                    "width": "200",
-                    "height": "100"
-                },
-                {
-                    "id": "5",
-                    "name": "Legacy WMS",
-                    "coord": {
-                        "x": "904",
-                        "y": "508"
-                    },
-                    "cat": "DIS",
-                    "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2020-12-31"
-                    },
-                    "width": "200",
-                    "height": "100"
-                },
-                {
-                    "id": "6",
-                    "name": "Legacy TMS",
-                    "coord": {
-                        "x": "382",
-                        "y": "170"
-                    },
-                    "cat": "DIS",
-                    "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2019-12-31"
-                    },
-                    "width": "200",
-                    "height": "100"
-                },
-                {
-                    "id": "7",
-                    "name": "Legacy Back-Office",
-                    "coord": {
-                        "x": "551",
-                        "y": "508"
-                    },
-                    "cat": "BO",
-                    "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2019-12-31"
-                    },
-                    "width": "200",
-                    "height": "100"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
+                    }
                 }
             ],
             "links": [
                 {
                     "id": "l1",
                     "name": "Link 1",
-                    "app_src_id": "2",
-                    "app_dest_id": "7",
+                    "app_src_id": "1",
+                    "app_dest_id": "2",
                     "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2019-12-31"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
                     }
                 },
                 {
                     "id": "l2",
                     "name": "Link 2",
                     "app_src_id": "2",
-                    "app_dest_id": "5",
+                    "app_dest_id": "1",
                     "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2020-12-31"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
                     }
                 },
                 {
                     "id": "l3",
                     "name": "Link 3",
-                    "app_src_id": "7",
-                    "app_dest_id": "5",
+                    "app_src_id": "1",
+                    "app_dest_id": "3",
                     "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2020-12-31"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
                     }
                 },
                 {
                     "id": "l4",
                     "name": "Link 4",
-                    "app_src_id": "7",
-                    "app_dest_id": "6",
-                    "dates_application": {
-                        "start": "2018-01-01",
-                        "end": "2020-12-31"
-                    }
-                },
-                {
-                    "id": "l5",
-                    "name": "Link 5",
-                    "app_src_id": "2",
-                    "app_dest_id": "1",
-                    "dates_application": {
-                        "start": "2019-01-01",
-                        "end": "2021-12-31"
-                    }
-                },
-                {
-                    "id": "l6",
-                    "name": "Link 6",
-                    "app_src_id": "2",
-                    "app_dest_id": "4",
-                    "dates_application": {
-                        "start": "2020-01-01",
-                        "end": "2021-12-31"
-                    }
-                },
-                {
-                    "id": "l7",
-                    "name": "Link 7",
                     "app_src_id": "1",
                     "app_dest_id": "4",
                     "dates_application": {
-                        "start": "2019-01-01",
-                        "end": "2021-12-31"
-                    }
-                },
-                {
-                    "id": "l8",
-                    "name": "Link 8",
-                    "app_src_id": "1",
-                    "app_dest_id": "3",
-                    "dates_application": {
-                        "start": "2019-01-01",
-                        "end": "2021-12-31"
+                        "start": "2017-02-01",
+                        "end": "2018-08-06"
                     }
                 }
             ]
@@ -202,8 +109,8 @@
         };
 
         var dates = [];
-        for (var i = 2018; i <= 2021; i++) {
-            dates.push(new Date(i, 0, 1));
+        for (var i = 2; i <= 11; i++) {
+            dates.push(new Date(2018, i, 1));
         }
 
         $scope.valueDate = dates[0];
@@ -243,7 +150,7 @@
                 stepsArray: dates,
                 translate: function (date) {
                     if (date != null)
-                        return date.getFullYear();
+                        return date.toLocaleDateString();
                     return '';
                 },
                 onChange: function () {
@@ -324,22 +231,6 @@
                 .text(function (d) { return d.name; });
         }
 
-        
-       function initLabelBoxes(boxes){
-        	
-    	   g.selectAll(".gBox")
-        	.data(boxes)
-        	.enter()
-        	.append("text")
-        	.attr("font-family", "Arial, Helvetica, sans-serif")
-                .attr('x', function (box) { return box.coord.x1+box.width/2; })
-                .attr('y', function (box) { return box.coord.y1+box.height/2; })
-                                .classed("gBox", true)
-                .attr("fill", "Black")
-                .style("font", "normal 14px Arial")
-                .attr("dy", ".35em").text(function (d) { return d.name; });
-        }
-        
 
         function drawBoxes() {
 
@@ -377,17 +268,6 @@
                     }
                 });
         }
-        
-        function updateOpacityLabelBoxes() {
-            g.selectAll(".gBox")
-                .attr('display',function(box){
-                    if(box.display){
-                        return 'inline';
-                    } else {
-                        return 'none';
-                    }
-                });
-        }
 
         function drawLabelLinks() {
             g.selectAll(".gLink")
@@ -408,19 +288,11 @@
                     }
                 });
         }
-        
-        function drawLabelBoxes() {
-            g.selectAll(".gBox")
-                .attr('x', function (box) { return box.coord.x1 + box.width/2; })
-                .attr('y', function (box) { return box.coord.y1 + box.height/2; });
-        }
-        
 
         function redraw() {
             updateOpacityBoxes();
             updateOpacityLinks();
-            updateOpacityLabelLinks(); 
-            updateOpacityLabelBoxes();
+            updateOpacityLabelLinks();
         }
 
 
@@ -440,8 +312,6 @@
 
 
         var g = svg.append('g');
-        
-        
 
 
         var boxes = data.app.map(function (box) {
@@ -449,15 +319,13 @@
             box.width = 200;
             box.height = 100;
             box.coord = {
-                x1: parseInt(box.coord.x) ,
-                y1: parseInt(box.coord.y),
-                x2: parseInt(box.coord.x)+box.width ,
-                y2: parseInt(box.coord.y) +box.height
+                x1: parseInt(box.coord.x) * 3 + 100,
+                y1: parseInt(box.coord.y) * 3+ 100,
+                x2: parseInt(box.coord.x) * 3 + box.width+ 100,
+                y2: parseInt(box.coord.y) * 3 + box.height+ 100
             };
             box.dates_application.start = new Date(box.dates_application.start);
-            box.dates_application.start.setHours(0);
             box.dates_application.end = new Date(box.dates_application.end);
-            box.dates_application.end.setHours(0);
 
             return box;
         });
@@ -471,9 +339,7 @@
             });
 
             link.dates_application.start = new Date(link.dates_application.start);
-            link.dates_application.start.setHours(0);
             link.dates_application.end = new Date(link.dates_application.end);
-            link.dates_application.end.setHours(0);
 
             return link;
         });
@@ -485,41 +351,15 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-
-            $scope.transfom = d3.event.transform;
-            g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
-            
+            $scope.transform = d3.event.transform;
+            g.attr("transform", "translate(" +  $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
         }
         
         svg.call(zoom);
         
         $scope.initZoom = function() {
-            var xMin = 1000000;
-            var yMin = 1000000;
-            var xMax = -1000000;
-            var yMax = -1000000;
-
-            boxes.forEach(function(box){
-                if(box.coord.x1 < xMin) {
-                    xMin = box.coord.x1;
-                }
-                if(box.coord.y1 < yMin) {
-                    yMin = box.coord.y1;
-                }
-                if(box.coord.x2 > xMax) {
-                    xMax = box.coord.x2;
-                }
-                if(box.coord.y2 > yMax) {
-                    yMax = box.coord.y2;
-                }
-            });
-            console.log(boxes);
-
-
-            var scale = Math.min(w/(xMax - xMin+200),h/(yMax-yMin+200));
-
-            $scope.transform = {x:xMin,y:yMin,k:scale};
-            g.attr("transform", "translate(" +  (-$scope.transform.x+100) + "," + (-$scope.transform.y+100) + ")scale(" + $scope.transform.k + ")");
+            $scope.transform = {x:0,y:0,k:1};
+            g.attr("transform","translate(0,0)scale(1)");
         }
         
         
@@ -537,7 +377,7 @@
 
 
         function dragstarted(d) {
-           // d3.select(this).raise().classed("active", true);
+            d3.select(this).raise().classed("active", true);
         }
 
         function dragged(d) {
@@ -570,22 +410,20 @@
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
-            drawLabelBoxes();
-
 
         }
 
         function dragended(d) {
-           // d3.select(this).classed("active", false);
-
+            d3.select(this).classed("active", false);
         }
 
         initLinks(links);
         initBoxes(boxes);
-        initLabelBoxes(boxes);
         initLabelLinks(links);
+
         computeDisplayableObjects();
         redraw();
+
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
 
