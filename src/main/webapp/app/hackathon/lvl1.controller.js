@@ -358,8 +358,32 @@
         svg.call(zoom);
         
         $scope.initZoom = function() {
-            $scope.transform = {x:0,y:0,k:1};
-            g.attr("transform","translate(0,0)scale(1)");
+            var xMin = 1000000;
+            var yMin = 1000000;
+            var xMax = -1000000;
+            var yMax = -1000000;
+
+            boxes.forEach(function(box){
+                if(box.coord.x1 < xMin) {
+                    xMin = box.coord.x1;
+                }
+                if(box.coord.y1 < yMin) {
+                    yMin = box.coord.y1;
+                }
+                if(box.coord.x2 > xMax) {
+                    xMax = box.coord.x2;
+                }
+                if(box.coord.y2 > yMax) {
+                    yMax = box.coord.y2;
+                }
+            });
+            console.log(boxes);
+
+
+            var scale = Math.min(w/(xMax - xMin+200),h/(yMax-yMin+200));
+
+            $scope.transform = {x:xMin,y:yMin,k:scale};
+            g.attr("transform", "translate(" +  (-$scope.transform.x+100) + "," + (-$scope.transform.y+100) + ")scale(" + $scope.transform.k + ")");
         }
         
         
