@@ -12,96 +12,189 @@
             "app": [
                 {
                     "id": "1",
-                    "name": "App 1",
+                    "name": "Back-Office",
                     "coord": {
-                        "x": "0",
-                        "y": "0"
+                        "x": "627",
+                        "y": "23"
                     },
-                    "cat": "cat 1",
+                    "cat": "BO",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
+                        "start": "2019-01-01",
+                        "end": "2022-01-01"
+                    },
+                    "width": "200",
+                    "height": "100"
                 },
                 {
                     "id": "2",
-                    "name": "App 2",
+                    "name": "Manufacturing ERP",
                     "coord": {
-                        "x": "100",
-                        "y": "0"
+                        "x": "962",
+                        "y": "94"
                     },
-                    "cat": "cat 1",
+                    "cat": "MRP",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-04-01"
-                    }
+                        "start": "2018-01-01",
+                        "end": "2022-01-01"
+                    },
+                    "width": "200",
+                    "height": "100"
                 },
                 {
                     "id": "3",
-                    "name": "App 3",
+                    "name": "TMS",
                     "coord": {
-                        "x": "0",
-                        "y": "100"
+                        "x": "291",
+                        "y": "220"
                     },
-                    "cat": "cat 2",
+                    "cat": "DIS",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
+                        "start": "2020-01-01",
+                        "end": "2022-01-01"
+                    },
+                    "width": "200",
+                    "height": "100"
                 },
                 {
                     "id": "4",
-                    "name": "App 4",
+                    "name": "WMS",
                     "coord": {
-                        "x": "100",
-                        "y": "100"
+                        "x": "533",
+                        "y": "357"
                     },
-                    "cat": "cat 3",
+                    "cat": "DIS",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
+                        "start": "2020-01-01",
+                        "end": "2022-01-01"
+                    },
+                    "width": "200",
+                    "height": "100"
+                },
+                {
+                    "id": "5",
+                    "name": "Legacy WMS",
+                    "coord": {
+                        "x": "904",
+                        "y": "508"
+                    },
+                    "cat": "DIS",
+                    "dates_application": {
+                        "start": "2018-01-01",
+                        "end": "2020-12-31"
+                    },
+                    "width": "200",
+                    "height": "100"
+                },
+                {
+                    "id": "6",
+                    "name": "Legacy TMS",
+                    "coord": {
+                        "x": "382",
+                        "y": "170"
+                    },
+                    "cat": "DIS",
+                    "dates_application": {
+                        "start": "2018-01-01",
+                        "end": "2019-12-31"
+                    },
+                    "width": "200",
+                    "height": "100"
+                },
+                {
+                    "id": "7",
+                    "name": "Legacy Back-Office",
+                    "coord": {
+                        "x": "551",
+                        "y": "508"
+                    },
+                    "cat": "BO",
+                    "dates_application": {
+                        "start": "2018-01-01",
+                        "end": "2019-12-31"
+                    },
+                    "width": "200",
+                    "height": "100"
                 }
             ],
             "links": [
                 {
                     "id": "l1",
                     "name": "Link 1",
-                    "app_src_id": "1",
-                    "app_dest_id": "2",
+                    "app_src_id": "2",
+                    "app_dest_id": "7",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
+                        "start": "2018-01-01",
+                        "end": "2019-12-31"
                     }
                 },
                 {
                     "id": "l2",
                     "name": "Link 2",
                     "app_src_id": "2",
-                    "app_dest_id": "1",
+                    "app_dest_id": "5",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
+                        "start": "2018-01-01",
+                        "end": "2020-12-31"
                     }
                 },
                 {
                     "id": "l3",
                     "name": "Link 3",
-                    "app_src_id": "1",
-                    "app_dest_id": "3",
+                    "app_src_id": "7",
+                    "app_dest_id": "5",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
+                        "start": "2018-01-01",
+                        "end": "2020-12-31"
                     }
                 },
                 {
                     "id": "l4",
                     "name": "Link 4",
+                    "app_src_id": "7",
+                    "app_dest_id": "6",
+                    "dates_application": {
+                        "start": "2018-01-01",
+                        "end": "2020-12-31"
+                    }
+                },
+                {
+                    "id": "l5",
+                    "name": "Link 5",
+                    "app_src_id": "2",
+                    "app_dest_id": "1",
+                    "dates_application": {
+                        "start": "2019-01-01",
+                        "end": "2021-12-31"
+                    }
+                },
+                {
+                    "id": "l6",
+                    "name": "Link 6",
+                    "app_src_id": "2",
+                    "app_dest_id": "4",
+                    "dates_application": {
+                        "start": "2020-01-01",
+                        "end": "2021-12-31"
+                    }
+                },
+                {
+                    "id": "l7",
+                    "name": "Link 7",
                     "app_src_id": "1",
                     "app_dest_id": "4",
                     "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
+                        "start": "2019-01-01",
+                        "end": "2021-12-31"
+                    }
+                },
+                {
+                    "id": "l8",
+                    "name": "Link 8",
+                    "app_src_id": "1",
+                    "app_dest_id": "3",
+                    "dates_application": {
+                        "start": "2019-01-01",
+                        "end": "2021-12-31"
                     }
                 }
             ]
@@ -109,8 +202,8 @@
         };
 
         var dates = [];
-        for (var i = 2; i <= 11; i++) {
-            dates.push(new Date(2018, i, 1));
+        for (var i = 2018; i <= 2021; i++) {
+            dates.push(new Date(i, 0, 1));
         }
 
         $scope.valueDate = dates[0];
@@ -150,7 +243,7 @@
                 stepsArray: dates,
                 translate: function (date) {
                     if (date != null)
-                        return date.toLocaleDateString();
+                        return date.getFullYear();
                     return '';
                 },
                 onChange: function () {
@@ -290,6 +383,22 @@
         }
 
 
+        function initLabelBoxes(boxes) {
+
+            g.selectAll(".gBox")
+                .data(boxes)
+                .enter()
+                .append("text")
+                .attr("font-family", "Arial, Helvetica, sans-serif")
+                .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
+                .attr('y', function (box) { return box.coord.y1 + box.height / 2; })
+                .classed("gBox", true)
+                .attr("fill", "Black")
+                .style("font", "normal 14px Arial")
+                .attr("dy", ".35em").text(function (d) { return d.name; });
+        }
+
+
         function drawBoxes() {
 
         }
@@ -343,6 +452,17 @@
                 });
         }
 
+        function updateOpacityLabelBoxes() {
+            g.selectAll(".gBox")
+                .attr('display', function (box) {
+                    if (box.display) {
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                });
+        }
+
         function drawLabelLinks() {
             g.selectAll(".gLink")
                 .attr("x", function (d) {
@@ -363,10 +483,18 @@
                 });
         }
 
+        function drawLabelBoxes() {
+            g.selectAll(".gBox")
+                .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
+                .attr('y', function (box) { return box.coord.y1 + box.height / 2; });
+        }
+
+
         function redraw() {
             updateOpacityBoxes();
             updateOpacityLinks();
             updateOpacityLabelLinks();
+            updateOpacityLabelBoxes();
         }
 
 
@@ -390,18 +518,22 @@
         var g = svg.append('g');
 
 
+
+
         var boxes = data.app.map(function (box) {
             //todo kill this
             box.width = 200;
             box.height = 100;
             box.coord = {
-                x1: parseInt(box.coord.x) * 3 + 100,
-                y1: parseInt(box.coord.y) * 3 + 100,
-                x2: parseInt(box.coord.x) * 3 + box.width + 100,
-                y2: parseInt(box.coord.y) * 3 + box.height + 100
+                x1: parseInt(box.coord.x),
+                y1: parseInt(box.coord.y),
+                x2: parseInt(box.coord.x) + box.width,
+                y2: parseInt(box.coord.y) + box.height
             };
             box.dates_application.start = new Date(box.dates_application.start);
+            box.dates_application.start.setHours(0);
             box.dates_application.end = new Date(box.dates_application.end);
+            box.dates_application.end.setHours(0);
 
             return box;
         });
@@ -415,7 +547,9 @@
             });
 
             link.dates_application.start = new Date(link.dates_application.start);
+            link.dates_application.start.setHours(0);
             link.dates_application.end = new Date(link.dates_application.end);
+            link.dates_application.end.setHours(0);
 
             return link;
         });
@@ -502,7 +636,7 @@
 
 
         function dragstarted(d) {
-            d3.select(this).raise().classed("active", true);
+            // d3.select(this).raise().classed("active", true);
         }
 
         function dragged(d) {
@@ -548,17 +682,18 @@
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
-
+            drawLabelBoxes();
         }
 
         function dragended(d) {
-            d3.select(this).classed("active", false);
+            // d3.select(this).classed("active", false);
+
         }
 
         initLinks(links);
         initBoxes(boxes);
+        initLabelBoxes(boxes);
         initLabelLinks(links);
-
         computeDisplayableObjects();
         redraw();
     }

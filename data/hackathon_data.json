@@ -1,99 +1,209 @@
-{
-   "app":[
-		"app1": {
-			"id": "1",
-			"name": "App 1",
-			"coord": {
-				"x": "0",
-				"y": "0"	
-			},
-			"cat": "cat 1",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+"app": [
+	{
+		"id": "1",
+		"name": "Back-Office",
+		"coord": {
+			"x": "627",
+			"y": "23"
 		},
-		"app2": {
-			"id": "2",
-			"name": "App 2",
-			"coord": {
-				"x": "100",
-				"y": "0"	
-			},
-			"cat": "cat 1",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+		"cat": "BO",
+		"dates_application": {
+			"start": "2019-01-01",
+			"end": "2022-01-01"
 		},
-		"app3": {
-			"id": "3",
-			"name": "App 3",
-			"coord": {
-				"x": "0",
-				"y": "100"	
-			},
-			"cat": "cat 2",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+		"width": "200",
+		"height": "100"
+	},
+	{
+		"id": "2",
+		"name": "Manufacturing ERP",
+		"coord": {
+			"x": "962",
+			"y": "94"
 		},
-		"app4": {
-			"id": "4",
-			"name": "App 4",
-			"coord": {
-				"x": "100",
-				"y": "100"	
-			},
-			"cat": "cat 3",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+		"cat": "MRP",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2022-01-01"
+		},
+		"width": "200",
+		"height": "100"
+	},
+	{
+		"id": "3",
+		"name": "TMS",
+		"coord": {
+			"x": "291",
+			"y": "220"
+		},
+		"cat": "DIS",
+		"dates_application": {
+			"start": "2020-01-01",
+			"end": "2022-01-01"
+		},
+		"width": "200",
+		"height": "100"
+	},
+	{
+		"id": "4",
+		"name": "WMS",
+		"coord": {
+			"x": "533",
+			"y": "357"
+		},
+		"cat": "DIS",
+		"dates_application": {
+			"start": "2020-01-01",
+			"end": "2022-01-01"
+		},
+		"width": "200",
+		"height": "100"
+	},
+	{
+		"id": "5",
+		"name": "Legacy WMS",
+		"coord": {
+			"x": "904",
+			"y": "508"
+		},
+		"cat": "DIS",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2020-12-31"
+		},
+		"width": "200",
+		"height": "100"
+	},
+	{
+		"id": "6",
+		"name": "Legacy TMS",
+		"coord": {
+			"x": "382",
+			"y": "170"
+		},
+		"cat": "DIS",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2019-12-31"
+		},
+		"width": "200",
+		"height": "100"
+	},
+	{
+		"id": "7",
+		"name": "Legacy Back-Office",
+		"coord": {
+			"x": "551",
+			"y": "508"
+		},
+		"cat": "BO",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2019-12-31"
+		},
+		"width": "200",
+		"height": "100"
+	}
+],
+"links": [
+	{
+		"id": "l1",
+		"name": "Link 1",
+		"app_src_id": "2",
+		"app_dest_id": "7",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2019-12-31"
+		}	
+	},
+	{
+		"id": "l2",
+		"name": "Link 2",
+		"app_src_id": "2",
+		"app_dest_id": "5",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2020-12-31"
 		}
-	],
-	"links":[
-		"link1":{
-			"id": "l1",
-			"name": "Link 1",
-			"app_src_id" : "1",
-			"app_dest_id" : "2",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
-		},
-		"link2":{
-			"id": "l2",
-			"name": "Link 2",
-			"app_src_id" : "2",
-			"app_dest_id" : "1",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
-		},
-		"link3":{
-			"id": "l3",
-			"name": "Link 3",
-			"app_src_id" : "1",
-			"app_dest_id" : "3",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
-		},
-		"link4":{
-			"id": "l4",
-			"name": "Link 4",
-			"app_src_id" : "1",
-			"app_dest_id" : "4",
-			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+	},
+	{
+		"id": "l3",
+		"name": "Link 3",
+		"app_src_id": "7",
+		"app_dest_id": "5",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2020-12-31"
 		}
-	]
-	
+	},
+	{
+		"id": "l4",
+		"name": "Link 4",
+		"app_src_id": "7",
+		"app_dest_id": "6",
+		"dates_application": {
+			"start": "2018-01-01",
+			"end": "2020-12-31"
+		}
+	},
+	{
+		"id": "l5",
+		"name": "Link 5",
+		"app_src_id": "2",
+		"app_dest_id": "1",
+		"dates_application": {
+			"start": "2019-01-01",
+			"end": "2021-12-31"
+		}
+	},
+	{
+		"id": "l6",
+		"name": "Point-To-Point Specific -SAP/ALE (CIF qRFC) - WMS",
+		"app_src_id": "2",
+		"app_dest_id": "4",
+		"dates_application": {
+			"start": "2020-01-01",
+			"end": "2021-12-31"
+		},
+		"interfaces":[
+			{
+				"name": "Outbound delivery",
+				"master": "false"
+			},
+			{
+				"name": "Inspection lot",
+				"master": "false"
+			},
+			{
+				"name": "Customer creation and update",
+				"master": "true"
+			},
+			{
+				"name": "Batch Master",
+				"master": "true"
+			}
+		]
+	},
+	{
+		"id": "l7",
+		"name": "Link 7",
+		"app_src_id": "1",
+		"app_dest_id": "4",
+		"dates_application": {
+			"start": "2019-01-01",
+			"end": "2021-12-31"
+		}
+	},
+	{
+		"id": "l8",
+		"name": "Link 8",
+		"app_src_id": "1",
+		"app_dest_id": "3",
+		"dates_application": {
+			"start": "2019-01-01",
+			"end": "2021-12-31"
+		}
+	}
+]
+
 }
