@@ -258,6 +258,12 @@ Custom alerts for notification
     }
 }
 
+.containerLvl1 {
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 /* ==========================================================================
 entity tables helpers
 ========================================================================== */
