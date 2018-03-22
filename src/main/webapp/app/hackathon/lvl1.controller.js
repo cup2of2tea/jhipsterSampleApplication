@@ -675,7 +675,6 @@
             updateOpacityLinks();
             updateOpacityLabelLinks();
             updateOpacityLabelBoxes();
-            $scope.initZoom();
         }
 
 
