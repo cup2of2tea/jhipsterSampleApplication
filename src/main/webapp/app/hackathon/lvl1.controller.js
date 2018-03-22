@@ -126,14 +126,16 @@
 
 
         var boxes = data.app.map(function (box) {
-            box.coord = {
+           //todo kill this
+        	box.width=30;
+        	box.height=30;
+        	box.coord = {
                 x1: parseInt(box.coord.x),
                 y1: parseInt(box.coord.y),
-                x2: parseInt(box.coord.x) + 30,
-                y2: parseInt(box.coord.y) + 30
+                x2: parseInt(box.coord.x) + box.width,
+                y2: parseInt(box.coord.y) + box.height
             };
-            box.width = box.coord.x2 - box.coord.x1;
-            box.height = box.coord.y2 - box.coord.y1;
+            
 
             return box;
         });
@@ -173,10 +175,10 @@
         }
 
         function dragged(d) {
-            var x1 = d3.event.x;
-            var y1 = d3.event.y;
-            var x2 = x1 + 30;
-            var y2 = y1 + 30;
+            var x1 = d3.event.x-d.width/2;
+            var y1 = d3.event.y-d.height/2;
+            var x2 = x1 + d.width/2;
+            var y2 = y1 + d.height/2;
 
             d.coord.x1 = x1;
             d.coord.y1 = y1;
