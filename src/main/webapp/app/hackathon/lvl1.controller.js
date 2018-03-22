@@ -561,8 +561,5 @@
 
         computeDisplayableObjects();
         redraw();
-
-
-        //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
     }
 })();
