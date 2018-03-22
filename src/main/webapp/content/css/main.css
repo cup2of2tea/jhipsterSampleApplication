@@ -258,10 +258,23 @@ Custom alerts for notification
     }
 }
 
-.containerLvl1 {
+div.lvl1 {
     margin: 10px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+div.lvl1 i {
+    font-size: 50px;
+    -webkit-user-select: none;
+   -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+div.lvl1 svg {
+    border: 1px solid black;
 }
 
 /* ==========================================================================

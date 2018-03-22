@@ -114,9 +114,33 @@
         }
 
         $scope.valueDate = dates[0];
+        
 
         function between(dateDeb, dateEnd, dateBetween) {
             return dateBetween >= dateDeb && dateBetween <= dateEnd;
+        }
+
+
+        function computeDisplayableObjects() {
+            boxes = boxes.map(function (box) {
+                if (between(box.dates_application.start, box.dates_application.end, $scope.valueDate)) {
+                    box.display = true;
+                } else {
+                    box.display = false;
+                }
+                return box;
+            });
+            links = links.map(function (link) {
+                if (between(link.dates_application.start, link.dates_application.end, $scope.valueDate)
+                    && between(link.source.dates_application.start, link.source.dates_application.end, $scope.valueDate)
+                    && between(link.target.dates_application.start, link.target.dates_application.end, $scope.valueDate)
+                ) {
+                    link.display = true;
+                } else {
+                    link.display = false;
+                }
+                return link;
+            });
         }
 
 
@@ -129,30 +153,8 @@
                         return date.toLocaleDateString();
                     return '';
                 },
-                onChange: function(){
-                    boxes = boxes.map(function(box) {
-                        console.log(box.dates_application);
-                        console.log(box.dates_application);
-                        console.log($scope.valueDate);
-                        if(between(box.dates_application.start, box.dates_application.end, $scope.valueDate)){
-                            box.display = true;
-                        } else {
-                            box.display = false;
-                        }
-                        return box;
-                    });
-                    links = links.map(function(link) {
-                        console.log($scope.valueDate);
-                        if(between(link.dates_application.start, link.dates_application.end, $scope.valueDate)
-                            && between(link.source.dates_application.start, link.source.dates_application.end, $scope.valueDate)
-                            && between(link.target.dates_application.start, link.target.dates_application.end, $scope.valueDate)
-                            ){
-                            link.display = true;
-                        } else {
-                            link.display = false;
-                        }
-                        return link;
-                    });
+                onChange: function () {
+                    computeDisplayableObjects();
                     redraw();
                 }
             }
@@ -252,8 +254,8 @@
 
         function updateOpacityBoxes() {
             g.selectAll('.box')
-                .attr('display',function(box) {
-                    if(box.display){
+                .attr('display', function (box) {
+                    if (box.display) {
                         return 'inline';
                     } else {
                         return 'none';
@@ -263,8 +265,8 @@
 
         function updateOpacityLinks() {
             g.selectAll('.link')
-                .attr('display',function(link) {
-                    if(link.display){
+                .attr('display', function (link) {
+                    if (link.display) {
                         return 'inline';
                     } else {
                         return 'none';
@@ -274,8 +276,8 @@
 
         function updateOpacityLabelLinks() {
             g.selectAll(".gLink")
-                .attr('display',function(link){
-                    if(link.display){
+                .attr('display', function (link) {
+                    if (link.display) {
                         return 'inline';
                     } else {
                         return 'none';
@@ -330,8 +332,10 @@
 
 
         var vm = this;
-        var w = 1280,
+        var w = 1700,
             h = 800;
+
+        $scope.transform = {x:0,y:0,k:1};
 
         var chartWidth = w;
         var chartHeight = h;
@@ -352,10 +356,10 @@
             box.width = 200;
             box.height = 100;
             box.coord = {
-                x1: parseInt(box.coord.x)*3,
-                y1: parseInt(box.coord.y)*3,
-                x2: parseInt(box.coord.x)*3 + box.width,
-                y2: parseInt(box.coord.y)*3 + box.height
+                x1: parseInt(box.coord.x) * 3 + 100,
+                y1: parseInt(box.coord.y) * 3+ 100,
+                x2: parseInt(box.coord.x) * 3 + box.width+ 100,
+                y2: parseInt(box.coord.y) * 3 + box.height+ 100
             };
             box.dates_application.start = new Date(box.dates_application.start);
             box.dates_application.end = new Date(box.dates_application.end);
@@ -384,12 +388,24 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
+
             $scope.transfom = d3.event.transform;
             g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
             
         }
-
+        
         svg.call(zoom);
+        
+        $scope.initZoom = function() {
+            $scope.transform = {x:0,y:0,k:1};
+            g.attr("transform","translate(0,0)scale(1)");
+        }
+        
+        
+        $scope.zoom = function(ratio) {
+            $scope.transform.k = ratio * $scope.transform.k;
+            g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
+        }
 
 
 
@@ -428,6 +444,8 @@
                     return (link.target.coord.y1 + link.target.coord.y2) / 2;
                 });
 
+            
+
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
@@ -445,7 +463,8 @@
         initBoxes(boxes);
         initLabelBoxes(boxes);
         initLabelLinks(links);
-        //redraw();
+        computeDisplayableObjects();
+        redraw();
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
 

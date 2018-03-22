@@ -1,8 +1,18 @@
-<div ng-cloak>
+<div ng-cloak class="lvl1">
+    <div class="row">
+        <rzslider rz-slider-model="valueDate" rz-slider-options="slider.options"></rzslider>
+    </div>
+    <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+            <i class="material-icons" ng-click="initZoom()">aspect_ratio</i>
+            <i class="material-icons" ng-click="zoom(1.1)">zoom_in</i>
+            <i class="material-icons" ng-click="zoom(0.9)">zoom_out</i>
+        </div>
+
+    </div>
     <div class="row">
         <div class="col-sm-12 lvl1">
-                <rzslider rz-slider-model="valueDate"
-          rz-slider-options="slider.options"></rzslider>
         </div>
     </div>
 </div>
