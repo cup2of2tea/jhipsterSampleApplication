@@ -355,7 +355,7 @@
         }
 
         $scope.valueDate = dates[0];
-        
+
 
         function between(dateDeb, dateEnd, dateBetween) {
             return dateBetween >= dateDeb && dateBetween <= dateEnd;
@@ -419,26 +419,84 @@
         }
 
 
+        function pointOnRect(x, y, minX, minY, maxX, maxY, validate) {
+            //assert minX <= maxX;
+            //assert minY <= maxY;
+            if (validate && (minX < x && x < maxX) && (minY < y && y < maxY))
+                return null;
+            var midX = (minX + maxX) / 2;
+            var midY = (minY + maxY) / 2;
+            // if (midX - x == 0) -> m == ±Inf -> minYx/maxYx == x (because value / ±Inf = ±0)
+            var m = (midY - y) / (midX - x);
+
+            if (x <= midX) { // check "left" side
+                var minXy = m * (minX - x) + y;
+                if (minY <= minXy && minXy <= maxY)
+                    return { x: minX, y: minXy };
+            }
+
+            if (x >= midX) { // check "right" side
+                var maxXy = m * (maxX - x) + y;
+                if (minY <= maxXy && maxXy <= maxY)
+                    return { x: maxX, y: maxXy };
+            }
+
+            if (y <= midY) { // check "top" side
+                var minYx = (minY - y) / m + x;
+                if (minX <= minYx && minYx <= maxX)
+                    return { x: minYx, y: minY };
+            }
+
+            if (y >= midY) { // check "bottom" side
+                var maxYx = (maxY - y) / m + x;
+                if (minX <= maxYx && maxYx <= maxX)
+                    return { x: maxYx, y: maxY };
+            }
+
+            // edge case when finding midpoint intersection: m = 0/0 = NaN
+            if (x === midX && y === midY) return { x: x, y: y };
+
+            // Should never happen :) If it does, please tell me!
+            return null;
+        }
+
+
         function initLinks(links) {
-            g.selectAll("line")
+
+            links = links.map(function (link) {
+                var pointDeb = pointOnRect((link.target.coord.x1 + link.target.coord.x2) / 2,
+                    (link.target.coord.y1 + link.target.coord.y2) / 2,
+                    link.source.coord.x1 - 4, link.source.coord.y1 - 4,
+                    link.source.coord.x2 + 4, link.source.coord.y2 + 4);
+                var pointEnd = pointOnRect((link.source.coord.x1 + link.source.coord.x2) / 2,
+                    (link.source.coord.y1 + link.source.coord.y2) / 2,
+                    link.target.coord.x1 - 4, link.target.coord.y1 - 4,
+                    link.target.coord.x2 + 4, link.target.coord.y2 + 4);
+                link.coord = {};
+                link.coord.x1 = pointDeb.x;
+                link.coord.x2 = pointEnd.x;
+                link.coord.y1 = pointDeb.y;
+                link.coord.y2 = pointEnd.y;
+                return link;
+            });
+
+            g.selectAll(".link")
                 .data(links)
                 .enter()
-                .append('line')
+                .append('svg:path')
+                .attr('d', function (link, i) {
+                    var x1 = link.coord.x1;
+                    var y1 = link.coord.y1;
+                    var x2 = link.coord.x2;
+                    var y2 = link.coord.y2;
+
+                    return 'M ' + x1 + ',' + y1 + ' L ' + x2 + ',' + y2 + ''
+                })
                 .classed('link', true)
-                .attr('x1', function (link) {
-                    return (link.source.coord.x1 + link.source.coord.x2) / 2;
-                })
-                .attr('y1', function (link) {
-                    return (link.source.coord.y1 + link.source.coord.y2) / 2;
-                })
-                .attr('x2', function (link) {
-                    return (link.target.coord.x1 + link.target.coord.x2) / 2;
-                })
-                .attr('y2', function (link) {
-                    return (link.target.coord.y1 + link.target.coord.y2) / 2;
-                })
+                .attr("marker-end", "url(#marker_arrow)")
                 .attr('stroke', 'black')
                 .attr('stroke-width', '2');
+
 
         }
 
@@ -450,19 +508,19 @@
                 .append("text")
                 .attr("font-family", "Arial, Helvetica, sans-serif")
                 .attr("x", function (d) {
-                    if (d.target.coord.x1 > d.source.coord.x1) {
-                        return (d.source.coord.x1 + (d.target.coord.x1 - d.source.coord.x1) / 2);
+                    if (d.coord.x2 > d.coord.x1) {
+                        return (d.coord.x1 + (d.coord.x2 - d.coord.x1) / 2 - 10);
                     }
                     else {
-                        return (d.target.coord.x1 + (d.source.coord.x1 - d.target.coord.x1) / 2);
+                        return (d.coord.x2 + (d.coord.x1 - d.coord.x2) / 2 + 10);
                     }
                 })
                 .attr("y", function (d) {
-                    if (d.target.coord.y1 > d.source.coord.y1) {
-                        return (d.source.coord.y1 + (d.target.coord.y1 - d.source.coord.y1) / 2);
+                    if (d.coord.y2 > d.coord.y1) {
+                        return (d.coord.y1 + (d.coord.y2 - d.coord.y1) / 2 - 10);
                     }
                     else {
-                        return (d.target.coord.y1 + (d.source.coord.y1 - d.target.coord.y1) / 2);
+                        return (d.coord.y2 + (d.coord.y1 - d.coord.y2) / 2 + 10);
                     }
                 })
                 .classed("gLink", true)
@@ -472,22 +530,22 @@
                 .text(function (d) { return d.name; });
         }
 
-        
-       function initLabelBoxes(boxes){
-        	
-    	   g.selectAll(".gBox")
-        	.data(boxes)
-        	.enter()
-        	.append("text")
-        	.attr("font-family", "Arial, Helvetica, sans-serif")
-                .attr('x', function (box) { return box.coord.x1+box.width/2; })
-                .attr('y', function (box) { return box.coord.y1+box.height/2; })
-                                .classed("gBox", true)
+
+        function initLabelBoxes(boxes) {
+
+            g.selectAll(".gBox")
+                .data(boxes)
+                .enter()
+                .append("text")
+                .attr("font-family", "Arial, Helvetica, sans-serif")
+                .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
+                .attr('y', function (box) { return box.coord.y1 + box.height / 2; })
+                .classed("gBox", true)
                 .attr("fill", "Black")
                 .style("font", "normal 14px Arial")
                 .attr("dy", ".35em").text(function (d) { return d.name; });
         }
-        
+
 
         function drawBoxes() {
 
@@ -513,6 +571,22 @@
                         return 'none';
                     }
                 });
+            g.selectAll('.arrowLeft')
+                .attr('display', function (link) {
+                    if (link.display) {
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                });
+            g.selectAll('.arrowRight')
+                .attr('display', function (link) {
+                    if (link.display) {
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                });
         }
 
         function updateOpacityLabelLinks() {
@@ -525,11 +599,11 @@
                     }
                 });
         }
-        
+
         function updateOpacityLabelBoxes() {
             g.selectAll(".gBox")
-                .attr('display',function(box){
-                    if(box.display){
+                .attr('display', function (box) {
+                    if (box.display) {
                         return 'inline';
                     } else {
                         return 'none';
@@ -540,43 +614,45 @@
         function drawLabelLinks() {
             g.selectAll(".gLink")
                 .attr("x", function (d) {
-                    if (d.target.coord.x1 > d.source.coord.x1) {
-                        return (d.source.coord.x1 + (d.target.coord.x1 - d.source.coord.x1) / 2);
+                    if (d.coord.x2 > d.coord.x1) {
+                        return (d.coord.x1 + (d.coord.x2 - d.coord.x1) / 2 - 10);
                     }
                     else {
-                        return (d.target.coord.x1 + (d.source.coord.x1 - d.target.coord.x1) / 2);
+                        return (d.coord.x2 + (d.coord.x1 - d.coord.x2) / 2 + 10);
                     }
                 })
                 .attr("y", function (d) {
-                    if (d.target.coord.y1 > d.source.coord.y1) {
-                        return (d.source.coord.y1 + (d.target.coord.y1 - d.source.coord.y1) / 2);
+                    if (d.coord.y2 > d.coord.y1) {
+                        return (d.coord.y1 + (d.coord.y2 - d.coord.y1) / 2 - 10);
                     }
                     else {
-                        return (d.target.coord.y1 + (d.source.coord.y1 - d.target.coord.y1) / 2);
+                        return (d.coord.y2 + (d.coord.y1 - d.coord.y2) / 2 + 10);
                     }
                 });
         }
-        
+
         function drawLabelBoxes() {
             g.selectAll(".gBox")
-                .attr('x', function (box) { return box.coord.x1 + box.width/2; })
-                .attr('y', function (box) { return box.coord.y1 + box.height/2; });
+                .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
+                .attr('y', function (box) { return box.coord.y1 + box.height / 2; });
         }
-        
+
 
         function redraw() {
             updateOpacityBoxes();
             updateOpacityLinks();
-            updateOpacityLabelLinks(); 
+            updateOpacityLabelLinks();
             updateOpacityLabelBoxes();
         }
+
+
 
 
         var vm = this;
         var w = 1700,
             h = 800;
 
-        $scope.transform = {x:0,y:0,k:1};
+        $scope.transform = { x: 0, y: 0, k: 1 };
 
         var chartWidth = w;
         var chartHeight = h;
@@ -588,8 +664,8 @@
 
 
         var g = svg.append('g');
-        
-        
+
+
 
 
         var boxes = data.app.map(function (box) {
@@ -597,10 +673,10 @@
             box.width = 200;
             box.height = 100;
             box.coord = {
-                x1: parseInt(box.coord.x) ,
+                x1: parseInt(box.coord.x),
                 y1: parseInt(box.coord.y),
-                x2: parseInt(box.coord.x)+box.width ,
-                y2: parseInt(box.coord.y) +box.height
+                x2: parseInt(box.coord.x) + box.width,
+                y2: parseInt(box.coord.y) + box.height
             };
             box.dates_application.start = new Date(box.dates_application.start);
             box.dates_application.start.setHours(0);
@@ -633,49 +709,72 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-
-            $scope.transfom = d3.event.transform;
-            g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
-            
+            $scope.transform = d3.event.transform;
+            g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
         }
-        
+
         svg.call(zoom);
-        
-        $scope.initZoom = function() {
+
+        $scope.initZoom = function () {
             var xMin = 1000000;
             var yMin = 1000000;
             var xMax = -1000000;
             var yMax = -1000000;
 
-            boxes.forEach(function(box){
-                if(box.coord.x1 < xMin) {
+            boxes.forEach(function (box) {
+                if (!box.display) return;
+                if (box.coord.x1 < xMin) {
                     xMin = box.coord.x1;
                 }
-                if(box.coord.y1 < yMin) {
+                if (box.coord.y1 < yMin) {
                     yMin = box.coord.y1;
                 }
-                if(box.coord.x2 > xMax) {
+                if (box.coord.x2 > xMax) {
                     xMax = box.coord.x2;
                 }
-                if(box.coord.y2 > yMax) {
+                if (box.coord.y2 > yMax) {
                     yMax = box.coord.y2;
                 }
             });
-            console.log(boxes);
 
 
-            var scale = Math.min(w/(xMax - xMin+200),h/(yMax-yMin+200));
 
-            $scope.transform = {x:xMin,y:yMin,k:scale};
-            g.attr("transform", "translate(" +  (-$scope.transform.x+100) + "," + (-$scope.transform.y+100) + ")scale(" + $scope.transform.k + ")");
+            var scale = Math.min(w / (xMax - xMin + 100), h / (yMax - yMin + 100));
+
+            $scope.transform = { x: xMin, y: yMin, k: scale };
+            g.attr("transform", "translate(" + (-$scope.transform.x + 50) + "," + (-$scope.transform.y + 50) + ")scale(" + $scope.transform.k + ")");
         }
-        
-        
-        $scope.zoom = function(ratio) {
+
+
+        $scope.zoom = function (ratio) {
             $scope.transform.k = ratio * $scope.transform.k;
             g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
         }
 
+
+        var markers = [
+            { id: 0, name: 'circle', path: 'M 0, 0  m -5, 0  a 5,5 0 1,0 10,0  a 5,5 0 1,0 -10,0', viewbox: '-6 -6 12 12' }
+            , { id: 1, name: 'square', path: 'M 0,0 m -5,-5 L 5,-5 L 5,5 L -5,5 Z', viewbox: '-5 -5 10 10' }
+            , { id: 2, name: 'arrow', path: 'M 0,0 m -5,-5 L 5,0 L -5,5 Z', viewbox: '-5 -5 10 10' }
+            , { id: 2, name: 'stub', path: 'M 0,0 m -1,-5 L 1,-5 L 1,5 L -1,5 Z', viewbox: '-1 -5 2 10' }
+        ];
+
+        var defs = svg.append("defs")
+
+        var marker = defs.selectAll('marker')
+            .data(markers)
+            .enter()
+            .append('svg:marker')
+            .attr('id', function (d) { return 'marker_' + d.name })
+            .attr('markerHeight', 5)
+            .attr('markerWidth', 5)
+            .attr('markerUnits', 'strokeWidth')
+            .attr('orient', 'auto')
+            .attr('refX', 0)
+            .attr('refY', 0)
+            .attr('viewBox', function (d) { return d.viewbox })
+            .append('svg:path')
+            .attr('d', function (d) { return d.path });
 
 
         var drag = d3.drag()
@@ -685,7 +784,7 @@
 
 
         function dragstarted(d) {
-           // d3.select(this).raise().classed("active", true);
+            // d3.select(this).raise().classed("active", true);
         }
 
         function dragged(d) {
@@ -699,32 +798,43 @@
             d.coord.x2 = x2;
             d.coord.y2 = y2;
 
-            d3.selectAll("line")
-                .attr('x1', function (link) {
-                    return (link.source.coord.x1 + link.source.coord.x2) / 2;
-                })
-                .attr('y1', function (link) {
-                    return (link.source.coord.y1 + link.source.coord.y2) / 2;
-                })
-                .attr('x2', function (link) {
-                    return (link.target.coord.x1 + link.target.coord.x2) / 2;
-                })
-                .attr('y2', function (link) {
-                    return (link.target.coord.y1 + link.target.coord.y2) / 2;
+            links = links.map(function (link) {
+                var pointDeb = pointOnRect((link.target.coord.x1 + link.target.coord.x2) / 2,
+                    (link.target.coord.y1 + link.target.coord.y2) / 2,
+                    link.source.coord.x1 - 4, link.source.coord.y1 - 4,
+                    link.source.coord.x2 + 4, link.source.coord.y2 + 4);
+                var pointEnd = pointOnRect((link.source.coord.x1 + link.source.coord.x2) / 2,
+                    (link.source.coord.y1 + link.source.coord.y2) / 2,
+                    link.target.coord.x1 - 4, link.target.coord.y1 - 4,
+                    link.target.coord.x2 + 4, link.target.coord.y2 + 4);
+                link.coord.x1 = pointDeb.x;
+                link.coord.x2 = pointEnd.x;
+                link.coord.y1 = pointDeb.y;
+                link.coord.y2 = pointEnd.y;
+                return link;
+            });
+
+            d3.selectAll(".link")
+                .attr('d', function (link, i) {
+                    var x1 = link.coord.x1;
+                    var y1 = link.coord.y1;
+                    var x2 = link.coord.x2;
+                    var y2 = link.coord.y2;
+
+                    return 'M ' + x1 + ',' + y1 + ' L ' + x2 + ',' + y2 + ''
                 });
 
-            
+
+
 
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
             drawLabelBoxes();
-
-
         }
 
         function dragended(d) {
-           // d3.select(this).classed("active", false);
+            // d3.select(this).classed("active", false);
 
         }
 
@@ -734,9 +844,5 @@
         initLabelLinks(links);
         computeDisplayableObjects();
         redraw();
-
-        //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
-
-
     }
 })();
