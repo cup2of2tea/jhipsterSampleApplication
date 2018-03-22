@@ -33,7 +33,7 @@
                     "cat": "cat 1",
                     "dates_application": {
                         "start": "2017-02-01",
-                        "end": "2018-08-06"
+                        "end": "2018-04-01"
                     }
                 },
                 {
@@ -131,6 +131,9 @@
                 },
                 onChange: function(){
                     boxes = boxes.map(function(box) {
+                        console.log(box.dates_application);
+                        console.log(box.dates_application);
+                        console.log($scope.valueDate);
                         if(between(box.dates_application.start, box.dates_application.end, $scope.valueDate)){
                             box.display = true;
                         } else {
@@ -233,22 +236,33 @@
 
         function updateOpacityBoxes() {
             g.selectAll('.box')
-                .attr('fill',function(box) {
+                .attr('display',function(box) {
                     if(box.display){
-                        return 'black';
+                        return 'inline';
                     } else {
-                        return 'white';
+                        return 'none';
                     }
                 });
         }
 
         function updateOpacityLinks() {
             g.selectAll('.link')
-                .attr('stroke',function(link) {
+                .attr('display',function(link) {
                     if(link.display){
-                        return 'black';
+                        return 'inline';
                     } else {
-                        return 'white';
+                        return 'none';
+                    }
+                });
+        }
+
+        function updateOpacityLabelLinks() {
+            g.selectAll(".gLink")
+                .attr('display',function(link){
+                    if(link.display){
+                        return 'inline';
+                    } else {
+                        return 'none';
                     }
                 });
         }
@@ -274,8 +288,9 @@
         }
 
         function redraw() {
-            g.selectAll(".gLink")
-                .attr("")
+            updateOpacityBoxes();
+            updateOpacityLinks();
+            updateOpacityLabelLinks();
         }
 
 
@@ -373,9 +388,7 @@
                 })
                 .attr('y2', function (link) {
                     return (link.target.coord.y1 + link.target.coord.y2) / 2;
-                })
-                .attr('stroke', 'black')
-                .attr('stroke-width', '1');
+                });
 
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
@@ -390,6 +403,7 @@
         initLinks(links);
         initBoxes(boxes);
         initLabelLinks(links);
+        // redraw();
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
 
