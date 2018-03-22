@@ -546,6 +546,31 @@
                 .attr("dy", ".35em").text(function (d) { return d.name; });
         }
 
+       
+       
+       function initInterfaces(links){
+    	   g.selectAll(".gInts").data(links).enter().append("rect").attr("x", function (d) {
+               if (d.target.coord.x1 > d.source.coord.x1) {
+                   return (d.source.coord.x1 + (d.target.coord.x1 - d.source.coord.x1) / 2);
+               }
+               else {
+                   return (d.target.coord.x1 + (d.source.coord.x1 - d.target.coord.x1) / 2);
+               }
+           })
+           .attr("y", function (d) {
+               if (d.target.coord.y1 > d.source.coord.y1) {
+                   return (d.source.coord.y1 + (d.target.coord.y1 - d.source.coord.y1) / 2);
+               }
+               else {
+                   return (d.target.coord.y1 + (d.source.coord.y1 - d.target.coord.y1) / 2);
+               }
+           }).attr('width', 30)
+           .attr('height', 30).attr("fill","White")
+           .classed("gInts", true).attr('stroke', 'black').style("stroke-dasharray", ("3, 3"))
+           .attr('stroke-width', 1);
+    	   
+       }
+
 
         function drawBoxes() {
 
@@ -841,7 +866,8 @@
         initLinks(links);
         initBoxes(boxes);
         initLabelBoxes(boxes);
-        initLabelLinks(links);
+       // initLabelLinks(links);
+        initInterfaces(links)
         computeDisplayableObjects();
         redraw();
     }
