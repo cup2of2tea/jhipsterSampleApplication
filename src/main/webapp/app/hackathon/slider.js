@@ -13,7 +13,7 @@
                     stepsArray: dates,
                     translate: function (date) {
                         if (date != null)
-                            return date.toDateString();
+                            return date.toLocaleDateString();
                         return '';
                     }
                 }
