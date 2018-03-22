@@ -125,7 +125,7 @@
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2019-12-31"
-                    }
+                    }	
                 },
                 {
                     "id": "l2",
@@ -169,13 +169,31 @@
                 },
                 {
                     "id": "l6",
-                    "name": "Link 6",
+                    "name": "Point-To-Point Specific -SAP/ALE (CIF qRFC) - WMS",
                     "app_src_id": "2",
                     "app_dest_id": "4",
                     "dates_application": {
                         "start": "2020-01-01",
                         "end": "2021-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Outbound delivery",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Inspection lot",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Customer creation and update",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Batch Master",
+                            "master": "true"
+                        }
+                    ]
                 },
                 {
                     "id": "l7",
@@ -324,22 +342,6 @@
                 .text(function (d) { return d.name; });
         }
 
-        
-       function initLabelBoxes(boxes){
-        	
-    	   g.selectAll(".gBox")
-        	.data(boxes)
-        	.enter()
-        	.append("text")
-        	.attr("font-family", "Arial, Helvetica, sans-serif")
-                .attr('x', function (box) { return box.coord.x1+box.width/2; })
-                .attr('y', function (box) { return box.coord.y1+box.height/2; })
-                                .classed("gBox", true)
-                .attr("fill", "Black")
-                .style("font", "normal 14px Arial")
-                .attr("dy", ".35em").text(function (d) { return d.name; });
-        }
-        
 
         function drawBoxes() {
 
@@ -377,17 +379,6 @@
                     }
                 });
         }
-        
-        function updateOpacityLabelBoxes() {
-            g.selectAll(".gBox")
-                .attr('display',function(box){
-                    if(box.display){
-                        return 'inline';
-                    } else {
-                        return 'none';
-                    }
-                });
-        }
 
         function drawLabelLinks() {
             g.selectAll(".gLink")
@@ -408,19 +399,11 @@
                     }
                 });
         }
-        
-        function drawLabelBoxes() {
-            g.selectAll(".gBox")
-                .attr('x', function (box) { return box.coord.x1 + box.width/2; })
-                .attr('y', function (box) { return box.coord.y1 + box.height/2; });
-        }
-        
 
         function redraw() {
             updateOpacityBoxes();
             updateOpacityLinks();
-            updateOpacityLabelLinks(); 
-            updateOpacityLabelBoxes();
+            updateOpacityLabelLinks();
         }
 
 
@@ -440,8 +423,6 @@
 
 
         var g = svg.append('g');
-        
-        
 
 
         var boxes = data.app.map(function (box) {
@@ -485,41 +466,15 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-
-            $scope.transfom = d3.event.transform;
-            g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
-            
+            $scope.transform = d3.event.transform;
+            g.attr("transform", "translate(" +  $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
         }
         
         svg.call(zoom);
         
         $scope.initZoom = function() {
-            var xMin = 1000000;
-            var yMin = 1000000;
-            var xMax = -1000000;
-            var yMax = -1000000;
-
-            boxes.forEach(function(box){
-                if(box.coord.x1 < xMin) {
-                    xMin = box.coord.x1;
-                }
-                if(box.coord.y1 < yMin) {
-                    yMin = box.coord.y1;
-                }
-                if(box.coord.x2 > xMax) {
-                    xMax = box.coord.x2;
-                }
-                if(box.coord.y2 > yMax) {
-                    yMax = box.coord.y2;
-                }
-            });
-            console.log(boxes);
-
-
-            var scale = Math.min(w/(xMax - xMin+200),h/(yMax-yMin+200));
-
-            $scope.transform = {x:xMin,y:yMin,k:scale};
-            g.attr("transform", "translate(" +  (-$scope.transform.x+100) + "," + (-$scope.transform.y+100) + ")scale(" + $scope.transform.k + ")");
+            $scope.transform = {x:0,y:0,k:1};
+            g.attr("transform","translate(0,0)scale(1)");
         }
         
         
@@ -537,7 +492,7 @@
 
 
         function dragstarted(d) {
-           // d3.select(this).raise().classed("active", true);
+            d3.select(this).raise().classed("active", true);
         }
 
         function dragged(d) {
@@ -570,22 +525,20 @@
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
-            drawLabelBoxes();
-
 
         }
 
         function dragended(d) {
-           // d3.select(this).classed("active", false);
-
+            d3.select(this).classed("active", false);
         }
 
         initLinks(links);
         initBoxes(boxes);
-        initLabelBoxes(boxes);
         initLabelLinks(links);
+
         computeDisplayableObjects();
         redraw();
+
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
 
