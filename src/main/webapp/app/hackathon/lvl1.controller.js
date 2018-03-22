@@ -119,83 +119,231 @@
             "links": [
                 {
                     "id": "l1",
-                    "name": "Link 1",
+                    "name": "SAP/ALE",
                     "app_src_id": "2",
                     "app_dest_id": "7",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2019-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Material",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Cost center",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Business partners",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Shipping Order",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Invoice",
+                            "master": "false"
+                        }
+                    ]
                 },
                 {
                     "id": "l2",
-                    "name": "Link 2",
+                    "name": "Point-To-Point Specific -SAP/ALE (CIF qRFC) - WMS",
                     "app_src_id": "2",
                     "app_dest_id": "5",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2020-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Outbound delivery",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Inspection lot",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Customer creation and update",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Batch Master",
+                            "master": "true"
+                        }
+                    ]
                 },
                 {
                     "id": "l3",
-                    "name": "Link 3",
+                    "name": "Point-To-Point Specific -SAP/ALE (CIF qRFC) - WMS",
                     "app_src_id": "7",
                     "app_dest_id": "5",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2020-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Stock movement",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Inventory report",
+                            "master": "false"
+                        },
+                        {
+                            "name": "BOM",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Batch Master",
+                            "master": "true"
+                        }
+                    ]
                 },
                 {
                     "id": "l4",
-                    "name": "Link 4",
+                    "name": "Integration platform",
                     "app_src_id": "7",
                     "app_dest_id": "6",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2020-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Shipment",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Purchase order",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Logistics routes",
+                            "master": "true"
+                        }
+                    ]
                 },
                 {
                     "id": "l5",
-                    "name": "Link 5",
+                    "name": "SAP/ALE",
                     "app_src_id": "2",
                     "app_dest_id": "1",
                     "dates_application": {
                         "start": "2019-01-01",
                         "end": "2021-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Material",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Cost center",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Business partners",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Shipping Order",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Internal orders",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Inbound Delivery",
+                            "master": "false"
+                        }
+                    ]
                 },
                 {
                     "id": "l6",
-                    "name": "Link 6",
+                    "name": "Point-To-Point Specific -SAP/ALE (CIF qRFC) - WMS",
                     "app_src_id": "2",
                     "app_dest_id": "4",
                     "dates_application": {
                         "start": "2020-01-01",
                         "end": "2021-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Outbound delivery",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Inspection lot",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Customer creation and update",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Batch Master",
+                            "master": "true"
+                        }
+                    ]
                 },
                 {
                     "id": "l7",
-                    "name": "Link 7",
+                    "name": "Point-To-Point Specific -SAP/ALE (CIF qRFC) - WMS",
                     "app_src_id": "1",
                     "app_dest_id": "4",
                     "dates_application": {
                         "start": "2019-01-01",
                         "end": "2021-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Stock movement",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Inventory report",
+                            "master": "false"
+                        },
+                        {
+                            "name": "BOM",
+                            "master": "true"
+                        },
+                        {
+                            "name": "Batch Master",
+                            "master": "true"
+                        }
+                    ]
                 },
                 {
                     "id": "l8",
-                    "name": "Link 8",
+                    "name": "Integration platform",
                     "app_src_id": "1",
                     "app_dest_id": "3",
                     "dates_application": {
                         "start": "2019-01-01",
                         "end": "2021-12-31"
-                    }
+                    },
+                    "interfaces":[
+                        {
+                            "name": "Shipment",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Purchase order",
+                            "master": "false"
+                        },
+                        {
+                            "name": "Logistics routes",
+                            "master": "true"
+                        }
+                    ]
                 }
             ]
 
