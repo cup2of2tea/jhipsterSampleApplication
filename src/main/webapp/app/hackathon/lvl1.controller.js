@@ -9,108 +9,201 @@
 
     function lvl1Controller($scope) {
         var data = {
-            "app": [
-                {
-                    "id": "1",
-                    "name": "App 1",
-                    "coord": {
-                        "x": "0",
-                        "y": "0"
-                    },
-                    "cat": "cat 1",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                },
-                {
-                    "id": "2",
-                    "name": "App 2",
-                    "coord": {
-                        "x": "100",
-                        "y": "0"
-                    },
-                    "cat": "cat 1",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                },
-                {
-                    "id": "3",
-                    "name": "App 3",
-                    "coord": {
-                        "x": "0",
-                        "y": "100"
-                    },
-                    "cat": "cat 2",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                },
-                {
-                    "id": "4",
-                    "name": "App 4",
-                    "coord": {
-                        "x": "100",
-                        "y": "100"
-                    },
-                    "cat": "cat 3",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                }
-            ],
-            "links": [
-                {
-                    "id": "l1",
-                    "name": "Link 1",
-                    "app_src_id": "1",
-                    "app_dest_id": "2",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                },
-                {
-                    "id": "l2",
-                    "name": "Link 2",
-                    "app_src_id": "2",
-                    "app_dest_id": "1",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                },
-                {
-                    "id": "l3",
-                    "name": "Link 3",
-                    "app_src_id": "1",
-                    "app_dest_id": "3",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                },
-                {
-                    "id": "l4",
-                    "name": "Link 4",
-                    "app_src_id": "1",
-                    "app_dest_id": "4",
-                    "dates_application": {
-                        "start": "2017-02-01",
-                        "end": "2018-08-06"
-                    }
-                }
-            ]
-
+                "app":[
+                     {
+                         "id": "1",
+                         "name": "Back-Office",
+                         "coord": {
+                             "x": "0",
+                             "y": "0"	
+                         },
+                         "cat": "BO",
+                         "dates_application" :{
+                             "start": "2019-01-01",
+                             "end": "2022-01-01"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     },
+                     {
+                         "id": "2",
+                         "name": "Manufacturing ERP",
+                         "coord": {
+                             "x": "100",
+                             "y": "0"	
+                         },
+                         "cat": "MRP",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2022-01-01"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     },
+                     {
+                         "id": "3",
+                         "name": "TMS",
+                         "coord": {
+                             "x": "0",
+                             "y": "100"	
+                         },
+                         "cat": "DIS",
+                         "dates_application" :{
+                             "start": "2020-01-01",
+                             "end": "2022-01-01"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     },
+                     {
+                         "id": "4",
+                         "name": "WMS",
+                         "coord": {
+                             "x": "100",
+                             "y": "100"	
+                         },
+                         "cat": "DIS",
+                         "dates_application" :{
+                             "start": "2020-01-01",
+                             "end": "2022-01-01"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     },
+                     {
+                         "id": "5",
+                         "name": "Legacy WMS",
+                         "coord": {
+                             "x": "100",
+                             "y": "100"	
+                         },
+                         "cat": "DIS",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2020-31-12"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     },
+                     {
+                         "id": "6",
+                         "name": "Legacy TMS",
+                         "coord": {
+                             "x": "0",
+                             "y": "100"	
+                         },
+                         "cat": "DIS",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2020-31-12"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     },
+                     {
+                         "id": "7",
+                         "name": "Legacy Back-Office",
+                         "coord": {
+                             "x": "0",
+                             "y": "0"	
+                         },
+                         "cat": "BO",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2019-31-12"
+                         },
+                         "width": "200",
+                         "height": "100"
+                     }
+                 ],
+                 "links":[
+                     {
+                         "id": "l1",
+                         "name": "Link 1",
+                         "app_src_id" : "2",
+                         "app_dest_id" : "7",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2019-31-12"
+                         }
+                     },
+                     {
+                         "id": "l2",
+                         "name": "Link 2",
+                         "app_src_id" : "2",
+                         "app_dest_id" : "5",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2020-12-31"
+                         }
+                     },
+                     {
+                         "id": "l3",
+                         "name": "Link 3",
+                         "app_src_id" : "7",
+                         "app_dest_id" : "5",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2020-12-31"
+                         }
+                     },
+                     {
+                         "id": "l4",
+                         "name": "Link 4",
+                         "app_src_id" : "7",
+                         "app_dest_id" : "4",
+                         "dates_application" :{
+                             "start": "2018-01-01",
+                             "end": "2020-12-31"
+                         }
+                     },
+                     {
+                         "id": "l5",
+                         "name": "Link 5",
+                         "app_src_id" : "2",
+                         "app_dest_id" : "1",
+                         "dates_application" :{
+                             "start": "2019-01-01",
+                             "end": "2021-12-31"
+                         }
+                     },
+                     {
+                         "id": "l6",
+                         "name": "Link 6",
+                         "app_src_id" : "2",
+                         "app_dest_id" : "4",
+                         "dates_application" :{
+                             "start": "2020-01-01",
+                             "end": "2021-12-31"
+                         }
+                     },
+                     {
+                         "id": "l7",
+                         "name": "Link 7",
+                         "app_src_id" : "1",
+                         "app_dest_id" : "4",
+                         "dates_application" :{
+                             "start": "2019-01-01",
+                             "end": "2021-12-31"
+                         }
+                     },
+                     {
+                         "id": "l8",
+                         "name": "Link 8",
+                         "app_src_id" : "1",
+                         "app_dest_id" : "3",
+                         "dates_application" :{
+                             "start": "2019-01-01",
+                             "end": "2021-12-31"
+                         }
+                     }
+                 ]
+            
         };
 
         var dates = [];
-        for (var i = 2; i <= 11; i++) {
-            dates.push(new Date(2018, i, 1));
+        for (var i = 2018; i <= 2021; i++) {
+            dates.push(new Date(i, 1, 1));
         }
 
         $scope.valueDate = dates[0];
@@ -126,7 +219,7 @@
                 stepsArray: dates,
                 translate: function (date) {
                     if (date != null)
-                        return date.toLocaleDateString();
+                        return date.getFullYear();
                     return '';
                 },
                 onChange: function(){
@@ -140,6 +233,7 @@
                     });
                     links = links.map(function(link) {
                         console.log($scope.valueDate);
+                        console.log(link.dates_application.start);
                         if(between(link.dates_application.start, link.dates_application.end, $scope.valueDate)
                             && between(link.source.dates_application.start, link.source.dates_application.end, $scope.valueDate)
                             && between(link.target.dates_application.start, link.target.dates_application.end, $scope.valueDate)

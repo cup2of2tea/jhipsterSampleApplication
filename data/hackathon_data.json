@@ -2,96 +2,189 @@
    "app":[
 		"app1": {
 			"id": "1",
-			"name": "App 1",
+			"name": "Back-Office",
 			"coord": {
 				"x": "0",
 				"y": "0"	
 			},
-			"cat": "cat 1",
+			"cat": "BO",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+				"start": "2019-01-01",
+				"end": "2022-01-01"
+			},
+			"width": "200",
+			"height": "100"
 		},
 		"app2": {
 			"id": "2",
-			"name": "App 2",
+			"name": "Manufacturing ERP",
 			"coord": {
 				"x": "100",
 				"y": "0"	
 			},
-			"cat": "cat 1",
+			"cat": "MRP",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+				"start": "2018-01-01",
+				"end": "2022-01-01"
+			},
+			"width": "200",
+			"height": "100"
 		},
 		"app3": {
 			"id": "3",
-			"name": "App 3",
+			"name": "TMS",
 			"coord": {
 				"x": "0",
 				"y": "100"	
 			},
-			"cat": "cat 2",
+			"cat": "DIS",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+				"start": "2020-01-01",
+				"end": "2022-01-01"
+			},
+			"width": "200",
+			"height": "100"
 		},
 		"app4": {
 			"id": "4",
-			"name": "App 4",
+			"name": "WMS",
 			"coord": {
 				"x": "100",
 				"y": "100"	
 			},
-			"cat": "cat 3",
+			"cat": "DIS",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
-			}
+				"start": "2020-01-01",
+				"end": "2022-01-01"
+			},
+			"width": "200",
+			"height": "100"
+		},
+		"app5": {
+			"id": "5",
+			"name": "Legacy WMS",
+			"coord": {
+				"x": "100",
+				"y": "100"	
+			},
+			"cat": "DIS",
+			"dates_application" :{
+				"start": "2018-01-01",
+				"end": "2020-31-12"
+			},
+			"width": "200",
+			"height": "100"
+		},
+		"app6": {
+			"id": "6",
+			"name": "Legacy TMS",
+			"coord": {
+				"x": "0",
+				"y": "100"	
+			},
+			"cat": "DIS",
+			"dates_application" :{
+				"start": "2018-01-01",
+				"end": "2020-31-12"
+			},
+			"width": "200",
+			"height": "100"
+		},
+		"app7": {
+			"id": "7",
+			"name": "Legacy Back-Office",
+			"coord": {
+				"x": "0",
+				"y": "0"	
+			},
+			"cat": "BO",
+			"dates_application" :{
+				"start": "2018-01-01",
+				"end": "2019-31-12"
+			},
+			"width": "200",
+			"height": "100"
 		}
 	],
 	"links":[
 		"link1":{
 			"id": "l1",
 			"name": "Link 1",
-			"app_src_id" : "1",
-			"app_dest_id" : "2",
+			"app_src_id" : "2",
+			"app_dest_id" : "7",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
+				"start": "2018-01-01",
+				"end": "2019-31-12"
 			}
 		},
 		"link2":{
 			"id": "l2",
 			"name": "Link 2",
 			"app_src_id" : "2",
-			"app_dest_id" : "1",
+			"app_dest_id" : "5",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
+				"start": "2018-01-01",
+				"end": "2020-12-31"
 			}
 		},
 		"link3":{
 			"id": "l3",
 			"name": "Link 3",
-			"app_src_id" : "1",
-			"app_dest_id" : "3",
+			"app_src_id" : "7",
+			"app_dest_id" : "5",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
+				"start": "2018-01-01",
+				"end": "2020-12-31"
 			}
 		},
 		"link4":{
 			"id": "l4",
 			"name": "Link 4",
+			"app_src_id" : "7",
+			"app_dest_id" : "4",
+			"dates_application" :{
+				"start": "2018-01-01",
+				"end": "2020-12-31"
+			}
+		},
+		"link5":{
+			"id": "l5",
+			"name": "Link 5",
+			"app_src_id" : "2",
+			"app_dest_id" : "1",
+			"dates_application" :{
+				"start": "2019-01-01",
+				"end": "2021-12-31"
+			}
+		},
+		"link6":{
+			"id": "l6",
+			"name": "Link 6",
+			"app_src_id" : "2",
+			"app_dest_id" : "4",
+			"dates_application" :{
+				"start": "2020-01-01",
+				"end": "2021-12-31"
+			}
+		},
+		"link7":{
+			"id": "l7",
+			"name": "Link 7",
 			"app_src_id" : "1",
 			"app_dest_id" : "4",
 			"dates_application" :{
-				"start": "2017-02-01",
-				"end": "2018-08-06"
+				"start": "2019-01-01",
+				"end": "2021-12-31"
+			}
+		},
+		"link8":{
+			"id": "l8",
+			"name": "Link 8",
+			"app_src_id" : "1",
+			"app_dest_id" : "3",
+			"dates_application" :{
+				"start": "2019-01-01",
+				"end": "2021-12-31"
 			}
 		}
 	]
