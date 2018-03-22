@@ -1,0 +1,99 @@
+{
+   "app":[
+		"app1": {
+			"id": "1",
+			"name": "App 1",
+			"coord": {
+				"x": "0",
+				"y": "0"	
+			},
+			"cat": "cat 1",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		},
+		"app2": {
+			"id": "2",
+			"name": "App 2",
+			"coord": {
+				"x": "100",
+				"y": "0"	
+			},
+			"cat": "cat 1",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		},
+		"app3": {
+			"id": "3",
+			"name": "App 3",
+			"coord": {
+				"x": "0",
+				"y": "100"	
+			},
+			"cat": "cat 2",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		},
+		"app4": {
+			"id": "4",
+			"name": "App 4",
+			"coord": {
+				"x": "100",
+				"y": "100"	
+			},
+			"cat": "cat 3",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		}
+	],
+	"links":[
+		"link1":{
+			"id": "l1",
+			"name": "Link 1",
+			"app_src_id" : "1",
+			"app_dest_id" : "2",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		},
+		"link2":{
+			"id": "l2",
+			"name": "Link 2",
+			"app_src_id" : "2",
+			"app_dest_id" : "1",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		},
+		"link3":{
+			"id": "l3",
+			"name": "Link 3",
+			"app_src_id" : "1",
+			"app_dest_id" : "3",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		},
+		"link4":{
+			"id": "l4",
+			"name": "Link 4",
+			"app_src_id" : "1",
+			"app_dest_id" : "4",
+			"dates_application" :{
+				"start": "2017-02-01",
+				"end": "2018-08-06"
+			}
+		}
+	]
+	
+}
