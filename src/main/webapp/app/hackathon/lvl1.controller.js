@@ -109,6 +109,52 @@
         };
 
 
+        function initBoxes(boxes) {
+            g.selectAll("rect")
+                .data(boxes)
+                .enter()
+                .append('rect')
+                .attr('x', function (box) { return box.coord.x1; })
+                .attr('y', function (box) { return box.coord.y1; })
+                .attr('stroke', 'black')
+                .attr('stroke-width', 1)
+                .attr('fill', 'white')
+                .classed('draggable', 'true')
+                .classed('box', 'true')
+                .attr('width', function (box) { return box.width; })
+                .attr('height', function (box) { return box.height; })
+                .call(drag);
+        }   
+
+        function initLinks(links) {
+            g.selectAll("line")
+                .data(links)
+                .enter()
+                .append('line')
+                .classed('link',true)
+                .attr('x1', function (link) {
+                    return (link.source.coord.x1 + link.source.coord.x2) / 2;
+                })
+                .attr('y1', function (link) {
+                    return (link.source.coord.y1 + link.source.coord.y2) / 2;
+                })
+                .attr('x2', function (link) {
+                    return (link.target.coord.x1 + link.target.coord.x2) / 2;
+                })
+                .attr('y2', function (link) {
+                    return (link.target.coord.y1 + link.target.coord.y2) / 2;
+                })
+                .attr('stroke', 'black')
+                .attr('stroke-width', '2');
+
+        }
+
+        function drawBoxes() {
+            g.selectAll(".link");
+            
+        }
+
+
         var vm = this;
         var w = 1280,
             h = 800;
@@ -150,21 +196,21 @@
             return link;
         });
 
+       
 
         //Create the zoom behavior to set for the draw
         var zoom = d3.zoom().on('zoom', zoomed);
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-        	g.attr("transform", "translate(" + d3.event.transform.x +","+d3.event.transform.y+ ")scale(" + d3.event.transform.k + ")");
+            g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
         }
-        
+
         svg.call(zoom);
 
 
 
         var drag = d3.drag()
-            //.origin(function(d) { return d; })
             .on("start", dragstarted)
             .on("drag", dragged)
             .on("end", dragended);
@@ -177,17 +223,13 @@
         function dragged(d) {
             var x1 = d3.event.x-d.width/2;
             var y1 = d3.event.y-d.height/2;
-            var x2 = x1 + d.width/2;
-            var y2 = y1 + d.height/2;
+            var x2 = x1 + d.width;
+            var y2 = y1 + d.height;
 
             d.coord.x1 = x1;
             d.coord.y1 = y1;
             d.coord.x2 = x2;
             d.coord.y2 = y2;
-
-
-            d3.select(this).attr("x", d.coord.x1)
-                .attr("y", d.coord.y1);
 
             d3.selectAll("line")
                 .attr('x1', function (link) {
@@ -203,51 +245,21 @@
                     return (link.target.coord.y1 + link.target.coord.y2) / 2;
                 })
                 .attr('stroke', 'black')
-                .attr('stroke-width', '2');
+                .attr('stroke-width', '1');
+
+            d3.select(this).attr("x", d.coord.x1)
+                .attr("y", d.coord.y1);
+
         }
 
         function dragended(d) {
             d3.select(this).classed("active", false);
         }
 
+        initLinks(links);
+        initBoxes(boxes);
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
-        var nodes = g.selectAll(".box")
-        
-                var links = g.selectAll("line")
-                    .data(links)
-                    .enter()
-                    .append('line')
-                    .attr('x1', function (link) {
-                        return (link.source.coord.x1 + link.source.coord.x2) / 2;
-                    })
-                    .attr('y1', function (link) {
-                        return (link.source.coord.y1 + link.source.coord.y2) / 2;
-                    })
-                    .attr('x2', function (link) {
-                        return (link.target.coord.x1 + link.target.coord.x2) / 2;
-                    })
-                    .attr('y2', function (link) {
-                        return (link.target.coord.y1 + link.target.coord.y2) / 2;
-                    })
-                    .attr('stroke', 'black')
-                    .attr('stroke-width', '2');
-
-        var boxes = g.selectAll("rect")
-            .data(boxes)
-            .enter()
-            .append('rect')
-            .attr('x', function (box) { return box.coord.x1; })
-            .attr('y', function (box) { return box.coord.y1; })
-            .attr('stroke', 'black')
-            .attr('stroke-width', 1)
-            .attr('fill', 'white')
-            .classed('draggable', 'true')
-            .classed('box', 'true')
-            .attr('width', function (box) { return box.width; })
-            .attr('height', function (box) { return box.height; })
-            .call(drag);
-
 
 
     }
