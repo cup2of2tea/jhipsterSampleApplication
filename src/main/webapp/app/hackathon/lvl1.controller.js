@@ -122,26 +122,6 @@
             .attr("height", h);
 
 
-
-
-        $scope.drawArrow = function (x1, y1, x2, y2) {
-            svg.append('line')
-                .attr('x1', x1)
-                .attr('x2', x2)
-                .attr('y1', y1)
-                .attr('y2', y2)
-                .attr('stroke', 'black')
-                .attr('stroke-width', 2);
-        }
-
-        $scope.drawLink = function (link) {
-            var x1 = Math.floor((link.source.coord.x1 + link.source.coord.x2) / 2);
-            var x2 = Math.floor((link.target.coord.x1 + link.target.coord.x2) / 2);
-            var y1 = Math.floor((link.source.coord.y1 + link.source.coord.y2) / 2);
-            var y2 = Math.floor((link.target.coord.y1 + link.target.coord.y2) / 2);
-            $scope.drawArrow(x1, y1, x2, y2);
-        }
-
         var boxes = data.app.map(function (box) {
             box.coord = {
                 x1: parseInt(box.coord.x),
@@ -165,26 +145,16 @@
             return link;
         });
 
-        console.log(boxes);
-        console.log(links);
-
-
-
-        // for(var i = 0; i < boxes.length; i++) {
-        //     $scope.drawBox(boxes[i]);
-        // }
-        // for(var i = 0; i < links.length; i++) {
-        //     $scope.drawLink(links[i]);
-        // }
 
         //Create the zoom behavior to set for the draw
-        // zoom = d3.behavior.zoom().scaleExtent([MAX_ZOOM_OUT, MAX_ZOOM_IN]).on('zoom', zoomed);
+        var zoom = d3.zoom().on('zoom', zoomed);
 
-        // //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
-        // function zoomed() {
-        // 	container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-        // }
-
+        //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
+        function zoomed() {
+        	svg.attr("transform", "scale(" + d3.event.transform.k + ")");
+        }
+        
+        svg.call(zoom);
 
 
 
@@ -237,6 +207,25 @@
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
         var nodes = svg.selectAll(".box")
+        
+                var links = svg.selectAll("line")
+                    .data(links)
+                    .enter()
+                    .append('line')
+                    .attr('x1', function (link) {
+                        return (link.source.coord.x1 + link.source.coord.x2) / 2;
+                    })
+                    .attr('y1', function (link) {
+                        return (link.source.coord.y1 + link.source.coord.y2) / 2;
+                    })
+                    .attr('x2', function (link) {
+                        return (link.target.coord.x1 + link.target.coord.x2) / 2;
+                    })
+                    .attr('y2', function (link) {
+                        return (link.target.coord.y1 + link.target.coord.y2) / 2;
+                    })
+                    .attr('stroke', 'black')
+                    .attr('stroke-width', '2');
 
         var boxes = svg.selectAll("rect")
             .data(boxes)
@@ -253,25 +242,6 @@
             .attr('height', function (box) { return box.height; })
             .call(drag);
 
-
-        var links = svg.selectAll("line")
-            .data(links)
-            .enter()
-            .append('line')
-            .attr('x1', function (link) {
-                return (link.source.coord.x1 + link.source.coord.x2) / 2;
-            })
-            .attr('y1', function (link) {
-                return (link.source.coord.y1 + link.source.coord.y2) / 2;
-            })
-            .attr('x2', function (link) {
-                return (link.target.coord.x1 + link.target.coord.x2) / 2;
-            })
-            .attr('y2', function (link) {
-                return (link.target.coord.y1 + link.target.coord.y2) / 2;
-            })
-            .attr('stroke', 'black')
-            .attr('stroke-width', '2');
 
 
     }
