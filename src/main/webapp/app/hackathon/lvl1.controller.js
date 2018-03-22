@@ -511,6 +511,7 @@
                 .data(links)
                 .enter()
                 .append("text")
+                .attr("text-anchor","middle")
                 .attr("font-family", "Arial, Helvetica, sans-serif")
                 .attr("x", function (d) {
                     if (d.coord.x2 > d.coord.x1) {
@@ -542,6 +543,7 @@
                 .data(boxes)
                 .enter()
                 .append("text")
+                .attr("text-anchor","middle")
                 .attr("font-family", "Arial, Helvetica, sans-serif")
                 .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
                 .attr('y', function (box) { return box.coord.y1 + box.height / 2; })
