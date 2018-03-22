@@ -122,6 +122,9 @@
             .attr("height", h);
 
 
+        var g = svg.append('g');
+
+
         var boxes = data.app.map(function (box) {
             box.coord = {
                 x1: parseInt(box.coord.x),
@@ -151,7 +154,7 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-        	svg.attr("transform", "scale(" + d3.event.transform.k + ")");
+        	g.attr("transform", "translate(" + d3.event.transform.x +","+d3.event.transform.y+ ")scale(" + d3.event.transform.k + ")");
         }
         
         svg.call(zoom);
@@ -205,10 +208,11 @@
             d3.select(this).classed("active", false);
         }
 
+
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
-        var nodes = svg.selectAll(".box")
+        var nodes = g.selectAll(".box")
         
-                var links = svg.selectAll("line")
+                var links = g.selectAll("line")
                     .data(links)
                     .enter()
                     .append('line')
@@ -227,7 +231,7 @@
                     .attr('stroke', 'black')
                     .attr('stroke-width', '2');
 
-        var boxes = svg.selectAll("rect")
+        var boxes = g.selectAll("rect")
             .data(boxes)
             .enter()
             .append('rect')
