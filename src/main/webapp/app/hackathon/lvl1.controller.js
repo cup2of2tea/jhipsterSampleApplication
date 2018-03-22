@@ -741,11 +741,13 @@
 
             var scale = Math.min(w / (xMax - xMin + 100), h / (yMax - yMin + 100));
 
-            $scope.transform = { x: xMin, y: yMin, k: scale };
-            g.attr("transform", "translate(" + (-$scope.transform.x + 50) + "," + (-$scope.transform.y + 50) + ")scale(" + $scope.transform.k + ")");
+            $scope.transform.x= -xMin + 50;
+            $scope.transform.y= -yMin + 50;
+            $scope.transform.k= scale ;
+            g.attr("transform", "translate(" + ($scope.transform.x) + "," + ($scope.transform.y) + ")scale(" + $scope.transform.k + ")");
         }
-
-
+        
+        
         $scope.zoom = function (ratio) {
             $scope.transform.k = ratio * $scope.transform.k;
             g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
