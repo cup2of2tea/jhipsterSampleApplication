@@ -650,6 +650,7 @@
             updateOpacityLinks();
             updateOpacityLabelLinks();
             updateOpacityLabelBoxes();
+            initZoom();
         }
 
 
