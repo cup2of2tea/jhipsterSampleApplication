@@ -359,3 +359,18 @@ ui bootstrap tweaks
 
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+/* basic positioning */
+.legend { 
+    list-style: none; 
+    position: absolute;
+    bottom: 100px;
+    left: 100px;}
+.legend li {margin-right: 10px; }
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+/* your colors */
+ .distribution { background-color: #0b569e;fill: #0b569e;}
+ .mrp { background-color: #cf483e; fill: #cf483e;}
+ .backoffice { background-color: #bdbc38; fill :#bdbc38;}
+
+ .containerLvl1 {position : relative;}
