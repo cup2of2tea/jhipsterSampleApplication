@@ -229,6 +229,22 @@
                 .text(function (d) { return d.name; });
         }
 
+        
+       function initLabelBoxes(boxes){
+        	
+    	   g.selectAll(".gBox")
+        	.data(boxes)
+        	.enter()
+        	.append("text")
+        	.attr("font-family", "Arial, Helvetica, sans-serif")
+                .attr('x', function (box) { return box.coord.x1+box.width/2; })
+                .attr('y', function (box) { return box.coord.y1+box.height/2; })
+                                .classed("gBox", true)
+                .attr("fill", "Black")
+                .style("font", "normal 14px Arial")
+                .attr("dy", ".35em").text(function (d) { return d.name; });
+        }
+        
 
         function drawBoxes() {
 
@@ -266,6 +282,17 @@
                     }
                 });
         }
+        
+        function updateOpacityLabelBoxes() {
+            g.selectAll(".gBox")
+                .attr('display',function(box){
+                    if(box.display){
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                });
+        }
 
         function drawLabelLinks() {
             g.selectAll(".gLink")
@@ -286,11 +313,19 @@
                     }
                 });
         }
+        
+        function drawLabelBoxes() {
+            g.selectAll(".gBox")
+                .attr('x', function (box) { return box.coord.x1 + box.width/2; })
+                .attr('y', function (box) { return box.coord.y1 + box.height/2; });
+        }
+        
 
         function redraw() {
             updateOpacityBoxes();
             updateOpacityLinks();
-            updateOpacityLabelLinks();
+            updateOpacityLabelLinks(); 
+            updateOpacityLabelBoxes();
         }
 
 
@@ -308,6 +343,8 @@
 
 
         var g = svg.append('g');
+        
+        
 
 
         var boxes = data.app.map(function (box) {
@@ -349,6 +386,7 @@
         function zoomed() {
             $scope.transfom = d3.event.transform;
             g.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
+            
         }
 
         svg.call(zoom);
@@ -362,7 +400,7 @@
 
 
         function dragstarted(d) {
-            d3.select(this).raise().classed("active", true);
+           // d3.select(this).raise().classed("active", true);
         }
 
         function dragged(d) {
@@ -393,17 +431,21 @@
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
             drawLabelLinks();
+            drawLabelBoxes();
+
 
         }
 
         function dragended(d) {
-            d3.select(this).classed("active", false);
+           // d3.select(this).classed("active", false);
+
         }
 
         initLinks(links);
         initBoxes(boxes);
+        initLabelBoxes(boxes);
         initLabelLinks(links);
-        // redraw();
+        //redraw();
 
         //svg.call(zoom).on("mousedown.zoom", null).on("dblclick.zoom", zoomIn);
 
