@@ -17,7 +17,7 @@
                         "x": "627",
                         "y": "23"
                     },
-                    "cat": "BO",
+                    "cat": "backoffice",
                     "dates_application": {
                         "start": "2019-01-01",
                         "end": "2022-01-01"
@@ -32,7 +32,7 @@
                         "x": "962",
                         "y": "94"
                     },
-                    "cat": "MRP",
+                    "cat": "mrp",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2022-01-01"
@@ -47,7 +47,7 @@
                         "x": "291",
                         "y": "220"
                     },
-                    "cat": "DIS",
+                    "cat": "distribution",
                     "dates_application": {
                         "start": "2020-01-01",
                         "end": "2022-01-01"
@@ -62,7 +62,7 @@
                         "x": "533",
                         "y": "357"
                     },
-                    "cat": "DIS",
+                    "cat": "distribution",
                     "dates_application": {
                         "start": "2020-01-01",
                         "end": "2022-01-01"
@@ -77,7 +77,7 @@
                         "x": "904",
                         "y": "508"
                     },
-                    "cat": "DIS",
+                    "cat": "distribution",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2020-12-31"
@@ -92,7 +92,7 @@
                         "x": "382",
                         "y": "170"
                     },
-                    "cat": "DIS",
+                    "cat": "distribution",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2019-12-31"
@@ -107,7 +107,7 @@
                         "x": "551",
                         "y": "508"
                     },
-                    "cat": "BO",
+                    "cat": "backoffice",
                     "dates_application": {
                         "start": "2018-01-01",
                         "end": "2019-12-31"
@@ -402,7 +402,7 @@
         };
 
         function initBoxes(boxes) {
-            g.selectAll("rect")
+            var boxElements = g.selectAll("rect")
                 .data(boxes)
                 .enter()
                 .append('rect')
@@ -413,9 +413,14 @@
                 .attr('fill', 'white')
                 .classed('draggable', 'true')
                 .classed('box', 'true')
+
                 .attr('width', function (box) { return box.width; })
                 .attr('height', function (box) { return box.height; })
                 .call(drag);
+
+                boxElements.each(function(d){
+                    this.classList.add(d.cat);
+                });
         }
 
 
