@@ -46,6 +46,11 @@
       "main": [
         "dist/css/bootstrap.css"
       ]
+    },
+    "material-design-icons": {
+      "main": [
+        "iconfont/material-icons.css"
+      ]
     }
   },
   "resolutions": {
