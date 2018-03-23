@@ -788,7 +788,7 @@
 
 
         function updateOpacityIcons() {
-            g.selectAll("image")
+            g.selectAll(".icoBox")
                 .attr('display', 'inline')
 
                 .transition()
