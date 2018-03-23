@@ -413,3 +413,5 @@ ui bootstrap tweaks
  .backoffice { background-color: #bdbc38; fill :#bdbc38;}
 
  .containerLvl1 {position : relative;}
+
+ .col-sm-1 > a{ color : grey;}
