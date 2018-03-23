@@ -739,6 +739,7 @@
                 })
 
                 .transition()
+                .duration(0)
                 .attr('display', function (box) {
                     if (box.display) {
                         return 'inline';
@@ -763,6 +764,7 @@
                 })
 
                 .transition()
+                .duration(0)
                 .attr('display', function (link) {
                     if (link.display) {
                         return 'inline';
@@ -787,6 +789,7 @@
                 })
 
                 .transition()
+                .duration(0)
                 .attr('display', function (link) {
                     if (link.display) {
                         return 'inline';
@@ -810,6 +813,7 @@
                     }
                 })
                 .transition()
+                .duration(0)
                 .attr('display', function (box) {
                     if (box.display) {
                         return 'inline';
@@ -842,6 +846,7 @@
                 })
 
                 .transition()
+                .duration(0)
                 .attr('display', function (link) {
                     if (link.displayBox&&link.display) {
                         return 'inline';
@@ -867,6 +872,7 @@
                 })
 
                 .transition()
+                .duration(0)
                 .attr('display', function (box) {
                     if (box.display) {
                         return 'inline';
