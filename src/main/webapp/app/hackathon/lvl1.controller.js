@@ -434,6 +434,7 @@
                 } else {
                     link.display = false;
                 }
+             //   link.displayBox=link.display;
                 return link;
             });
         }
@@ -576,35 +577,7 @@
         }
 
 
-        function initLabelLinks(links) {
-            g.selectAll(".gLink")
-                .data(links)
-                .enter()
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("font-family", "Arial, Helvetica, sans-serif")
-                .attr("x", function (d) {
-                    if (d.coord.x2 > d.coord.x1) {
-                        return (d.coord.x1 + (d.coord.x2 - d.coord.x1) / 2 - 10);
-                    }
-                    else {
-                        return (d.coord.x2 + (d.coord.x1 - d.coord.x2) / 2 + 10);
-                    }
-                })
-                .attr("y", function (d) {
-                    if (d.coord.y2 > d.coord.y1) {
-                        return (d.coord.y1 + (d.coord.y2 - d.coord.y1) / 2 - 10);
-                    }
-                    else {
-                        return (d.coord.y2 + (d.coord.y1 - d.coord.y2) / 2 + 10);
-                    }
-                })
-                .classed("gLink", true)
-                .attr("fill", "Black")
-                .style("font", "normal 14px Arial")
-                .attr("dy", ".35em")
-                .text(function (d) { return d.name; });
-        }
+
 
 
         function initLabelBoxes(boxes) {
@@ -626,23 +599,17 @@
 
 
         function initInterfaces(links) {
-            g.selectAll(".gInts").data(links).enter().append("rect").attr("x", function (d) {
-                if (d.target.coord.x1 > d.source.coord.x1) {
-                    return (d.source.coord.x1 + (d.target.coord.x1 - d.source.coord.x1) / 2);
-                }
-                else {
-                    return (d.target.coord.x1 + (d.source.coord.x1 - d.target.coord.x1) / 2);
-                }
+            g.selectAll(".gInts").data(links).enter().append("rect")
+            .attr("x", function (d) {
+
+            	 return (d.coord.x1 + (d.coord.x2 - d.coord.x1 -d.int.width) / 2);
             })
                 .attr("y", function (d) {
-                    if (d.target.coord.y1 > d.source.coord.y1) {
-                        return (d.source.coord.y1 + (d.target.coord.y1 - d.source.coord.y1) / 2);
-                    }
-                    else {
-                        return (d.target.coord.y1 + (d.source.coord.y1 - d.target.coord.y1) / 2);
-                    }
-                }).attr('width', 30)
-                .attr('height', 30).attr("fill", "White")
+               
+                    return (d.coord.y1 + (d.coord.y2 - d.coord.y1-d.int.height) / 2);
+                }).attr('width', function(d){return d.int.width;})
+                .attr('height',  function(d){return d.int.height;}).attr("rx",6).attr("ry",6)
+                .attr("fill", "White")
                 .classed("gInts", true).attr('stroke', 'black').style("stroke-dasharray", ("3, 3"))
                 .attr('display', 'inline')
                 .transition()
@@ -781,7 +748,7 @@
                 .transition()
                 .duration(500)
                 .attr('opacity', function (link) {
-                    if (link.displayBox) {
+                    if (link.displayBox&&link.display) {
                         return 1;
                     } else {
                         return 0;
@@ -790,13 +757,14 @@
 
                 .transition()
                 .attr('display', function (link) {
-                    if (link.displayBox) {
+                    if (link.displayBox&&link.display) {
                         return 'inline';
                     } else {
                         return 'none';
                     }
                 });
         }
+
 
         function updateOpacityIcons() {
             g.selectAll("image")
@@ -822,25 +790,9 @@
                 });
         }
 
-        function drawLabelLinks() {
-            g.selectAll(".gLink")
-                .attr("x", function (d) {
-                    if (d.coord.x2 > d.coord.x1) {
-                        return (d.coord.x1 + (d.coord.x2 - d.coord.x1) / 2 - 10);
-                    }
-                    else {
-                        return (d.coord.x2 + (d.coord.x1 - d.coord.x2) / 2 + 10);
-                    }
-                })
-                .attr("y", function (d) {
-                    if (d.coord.y2 > d.coord.y1) {
-                        return (d.coord.y1 + (d.coord.y2 - d.coord.y1) / 2 - 10);
-                    }
-                    else {
-                        return (d.coord.y2 + (d.coord.y1 - d.coord.y2) / 2 + 10);
-                    }
-                });
-        }
+
+
+
 
         function drawLabelBoxes() {
             g.selectAll(".gBox")
@@ -852,12 +804,25 @@
                 .attr('y', function (box) { return box.coord.y1 + 10; });
         }
 
+        
+        function  drawInts(){
+        	g.selectAll(".gInts")
+        	.attr("x", function (d) {
+           	 return (d.coord.x1 + (d.coord.x2 - d.coord.x1 -d.int.width) / 2);
+           })
+            .attr("y", function (d) {
+              
+                   return (d.coord.y1 + (d.coord.y2 - d.coord.y1-d.int.height) / 2);
+               })
+        	
+        }
 
         function redraw() {
             updateOpacityBoxes();
             updateOpacityLinks();
             updateOpacityLabelLinks();
             updateOpacityLabelBoxes();
+            updateOpacityInterfaces();
             updateOpacityIcons();
         }
 
@@ -914,6 +879,9 @@
             link.dates_application.end = new Date(link.dates_application.end);
             link.dates_application.end.setHours(0);
             link.displayBox = false;
+            link.int = {};
+            link.int.width = 100;
+            link.int.height = 100;
 
             return link;
         });
@@ -1041,6 +1009,7 @@
                 link.coord.x2 = pointEnd.x;
                 link.coord.y1 = pointDeb.y;
                 link.coord.y2 = pointEnd.y;
+
                 return link;
             });
 
@@ -1059,7 +1028,7 @@
 
             d3.select(this).attr("x", d.coord.x1)
                 .attr("y", d.coord.y1);
-            drawLabelLinks();
+           drawInts();
             drawLabelBoxes();
         }
 
