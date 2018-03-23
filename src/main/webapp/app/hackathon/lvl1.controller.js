@@ -13,6 +13,7 @@
                 {
                     "id": "1",
                     "name": "Back-Office",
+                    "img" : "ico_backoffice.png",
                     "coord": {
                         "x": "627",
                         "y": "23"
@@ -28,6 +29,7 @@
                 {
                     "id": "2",
                     "name": "Manufacturing ERP",
+                    "img" : "ico_manufactoring.png",
                     "coord": {
                         "x": "962",
                         "y": "94"
@@ -43,6 +45,7 @@
                 {
                     "id": "3",
                     "name": "TMS",
+                    "img" : "ico_distribution.png",
                     "coord": {
                         "x": "291",
                         "y": "220"
@@ -58,6 +61,7 @@
                 {
                     "id": "4",
                     "name": "WMS",
+                    "img" : "ico_distribution.png",
                     "coord": {
                         "x": "533",
                         "y": "357"
@@ -73,6 +77,7 @@
                 {
                     "id": "5",
                     "name": "Legacy WMS",
+                    "img" : "ico_distribution.png",
                     "coord": {
                         "x": "904",
                         "y": "508"
@@ -88,6 +93,7 @@
                 {
                     "id": "6",
                     "name": "Legacy TMS",
+                    "img" : "ico_distribution.png",
                     "coord": {
                         "x": "382",
                         "y": "170"
@@ -103,6 +109,7 @@
                 {
                     "id": "7",
                     "name": "Legacy Back-Office",
+                    "img" : "ico_backoffice.png",
                     "coord": {
                         "x": "551",
                         "y": "508"
@@ -421,6 +428,18 @@
                 boxElements.each(function(d){
                     this.classList.add(d.cat);
                 });
+                
+                
+                boxElements = g.selectAll("image")
+                .data(boxes)
+                .enter()
+                .append('image')
+                .attr('width', 53)
+                .attr('height', 43)
+                .attr('x', function (box) { return box.coord.x1+box.width/2-26; })
+                .attr('y', function (box) { return box.coord.y1 + 20; })
+                .attr("xlink:href", function(d){return "content/images/"+d.img}) .classed('icoBox', 'true');
+                
         }
 
 
@@ -546,10 +565,10 @@
                 .attr("text-anchor","middle")
                 .attr("font-family", "Arial, Helvetica, sans-serif")
                 .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
-                .attr('y', function (box) { return box.coord.y1 + box.height / 2; })
+                .attr('y', function (box) { return box.coord.y1 + box.height - 20; })
                 .classed("gBox", true)
-                .attr("fill", "Black")
-                .style("font", "normal 14px Arial")
+                .attr("fill", "White")
+                .style("font", "normal 18px Arial")
                 .attr("dy", ".35em").text(function (d) { return d.name; });
         }
 
@@ -641,6 +660,14 @@
                         return 'none';
                     }
                 });
+            
+            g.selectAll(".icoBox").attr('display', function (box) {
+                if (box.display) {
+                    return 'inline';
+                } else {
+                    return 'none';
+                }
+            });
         }
 
         function drawLabelLinks() {
@@ -666,7 +693,11 @@
         function drawLabelBoxes() {
             g.selectAll(".gBox")
                 .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
-                .attr('y', function (box) { return box.coord.y1 + box.height / 2; });
+                .attr('y', function (box) { return box.coord.y1 + box.height -20 });
+            
+            g.selectAll(".icoBox")
+            .attr('x', function (box) { return box.coord.x1+box.width/2-26; })
+            .attr('y', function (box) { return box.coord.y1 + 20; });
         }
 
 
