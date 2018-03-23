@@ -273,9 +273,7 @@ div.lvl1 i {
     user-select: none;
 }
 
-div.lvl1 svg {
-    border: 1px solid black;
-}
+
 
 div.lvl1 div.sliderZoom {
     height: 300px;
