@@ -262,6 +262,7 @@ div.lvl1 {
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
+    font-size: 20px;
 }
 
 div.lvl1 i {
@@ -305,6 +306,10 @@ div.lvl1 span.rz-bar {
 
 div.lvl1 .rz-tick {
     background-color: rgb(89,89,161);
+}
+
+div.lvl1 ul.legend li.filtered {
+    opacity: 0.6;
 }
 
 /* ==========================================================================
