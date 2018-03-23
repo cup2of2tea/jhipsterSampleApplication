@@ -259,9 +259,9 @@ Custom alerts for notification
 }
 
 div.lvl1 {
-    margin: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 div.lvl1 i {
@@ -275,6 +275,10 @@ div.lvl1 i {
 
 div.lvl1 svg {
     border: 1px solid black;
+}
+
+div.sliderZoom {
+    height: 300px;
 }
 
 /* ==========================================================================
