@@ -437,7 +437,7 @@
                 .attr('width', 53)
                 .attr('height', 43)
                 .attr('x', function (box) { return box.coord.x1+box.width/2-26; })
-                .attr('y', function (box) { return box.coord.y1 + 20; })
+                .attr('y', function (box) { return box.coord.y1 + 10; })
                 .attr("xlink:href", function(d){return "content/images/"+d.img}) .classed('icoBox', 'true');
                 
         }
@@ -697,7 +697,7 @@
             
             g.selectAll(".icoBox")
             .attr('x', function (box) { return box.coord.x1+box.width/2-26; })
-            .attr('y', function (box) { return box.coord.y1 + 20; });
+            .attr('y', function (box) { return box.coord.y1 + 10; });
         }
 
 
