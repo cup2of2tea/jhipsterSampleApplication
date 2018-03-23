@@ -9,10 +9,13 @@
             <i class="material-icons" ng-click="zoom(1.1)">zoom_in</i>
             <i class="material-icons" ng-click="zoom(0.9)">zoom_out</i>
         </div>
-
+        
     </div>
     <div class="row">
-        <div class="col-sm-12 lvl1">
+        <div class="col-sm-11 lvl1Svg">
+        </div>
+        <div class="col-sm-1 sliderZoom">
+            <rzslider rz-slider-model="sliders.transform.k" rz-slider-options="zoomOptions"></rzslider>
         </div>
     </div>
     <ul class="legend">

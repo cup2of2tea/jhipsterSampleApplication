@@ -133,7 +133,7 @@
                         "start": "2018-01-01",
                         "end": "2019-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Material",
                             "master": "true"
@@ -165,7 +165,7 @@
                         "start": "2018-01-01",
                         "end": "2020-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Outbound delivery",
                             "master": "false"
@@ -193,7 +193,7 @@
                         "start": "2018-01-01",
                         "end": "2020-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Stock movement",
                             "master": "false"
@@ -221,7 +221,7 @@
                         "start": "2018-01-01",
                         "end": "2020-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Shipment",
                             "master": "false"
@@ -245,7 +245,7 @@
                         "start": "2019-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Material",
                             "master": "true"
@@ -281,7 +281,7 @@
                         "start": "2020-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Outbound delivery",
                             "master": "false"
@@ -309,7 +309,7 @@
                         "start": "2019-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Stock movement",
                             "master": "false"
@@ -337,7 +337,7 @@
                         "start": "2019-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces":[
+                    "interfaces": [
                         {
                             "name": "Shipment",
                             "master": "false"
@@ -363,6 +363,29 @@
 
         $scope.valueDate = dates[0];
 
+        $scope.sliders = {
+            transform: {
+                x: 0, y: 0, k: 1
+            }
+        };
+
+        $scope.zoomOptions = {
+            vertical: true,
+            floor: 0,
+            ceil: 4,
+            precision: 2,
+            step: 0.1,
+            onChange: function () {
+                svg.call(zoom.transform,d3.zoomIdentity.translate($scope.sliders.transform.x,$scope.sliders.transform.y).scale($scope.sliders.transform.k));
+            },
+            ticksArray: [1.2],
+            translate: function(d) {
+                if(d >= 1.2)
+                return 'Level 2';
+                else return 'Level 1';
+            },
+            showTicksValues: true
+        };
 
         function between(dateDeb, dateEnd, dateBetween) {
             return dateBetween >= dateDeb && dateBetween <= dateEnd;
@@ -425,6 +448,7 @@
                 .attr('height', function (box) { return box.height; })
                 .call(drag);
 
+
                 boxElements.each(function(d){
                     this.classList.add(d.cat);
                 });
@@ -440,6 +464,7 @@
                 .attr('y', function (box) { return box.coord.y1 + 10; })
                 .attr("xlink:href", function(d){return "content/images/"+d.img}) .classed('icoBox', 'true');
                 
+
         }
 
 
@@ -530,7 +555,7 @@
                 .data(links)
                 .enter()
                 .append("text")
-                .attr("text-anchor","middle")
+                .attr("text-anchor", "middle")
                 .attr("font-family", "Arial, Helvetica, sans-serif")
                 .attr("x", function (d) {
                     if (d.coord.x2 > d.coord.x1) {
@@ -562,7 +587,7 @@
                 .data(boxes)
                 .enter()
                 .append("text")
-                .attr("text-anchor","middle")
+                .attr("text-anchor", "middle")
                 .attr("font-family", "Arial, Helvetica, sans-serif")
                 .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
                 .attr('y', function (box) { return box.coord.y1 + box.height - 20; })
@@ -572,30 +597,30 @@
                 .attr("dy", ".35em").text(function (d) { return d.name; });
         }
 
-       
-       
-       function initInterfaces(links){
-    	   g.selectAll(".gInts").data(links).enter().append("rect").attr("x", function (d) {
-               if (d.target.coord.x1 > d.source.coord.x1) {
-                   return (d.source.coord.x1 + (d.target.coord.x1 - d.source.coord.x1) / 2);
-               }
-               else {
-                   return (d.target.coord.x1 + (d.source.coord.x1 - d.target.coord.x1) / 2);
-               }
-           })
-           .attr("y", function (d) {
-               if (d.target.coord.y1 > d.source.coord.y1) {
-                   return (d.source.coord.y1 + (d.target.coord.y1 - d.source.coord.y1) / 2);
-               }
-               else {
-                   return (d.target.coord.y1 + (d.source.coord.y1 - d.target.coord.y1) / 2);
-               }
-           }).attr('width', 30)
-           .attr('height', 30).attr("fill","White")
-           .classed("gInts", true).attr('stroke', 'black').style("stroke-dasharray", ("3, 3"))
-           .attr('stroke-width', 1);
-    	   
-       }
+
+
+        function initInterfaces(links) {
+            g.selectAll(".gInts").data(links).enter().append("rect").attr("x", function (d) {
+                if (d.target.coord.x1 > d.source.coord.x1) {
+                    return (d.source.coord.x1 + (d.target.coord.x1 - d.source.coord.x1) / 2);
+                }
+                else {
+                    return (d.target.coord.x1 + (d.source.coord.x1 - d.target.coord.x1) / 2);
+                }
+            })
+                .attr("y", function (d) {
+                    if (d.target.coord.y1 > d.source.coord.y1) {
+                        return (d.source.coord.y1 + (d.target.coord.y1 - d.source.coord.y1) / 2);
+                    }
+                    else {
+                        return (d.target.coord.y1 + (d.source.coord.y1 - d.target.coord.y1) / 2);
+                    }
+                }).attr('width', 30)
+                .attr('height', 30).attr("fill", "White")
+                .classed("gInts", true).attr('stroke', 'black').style("stroke-dasharray", ("3, 3"))
+                .attr('stroke-width', 1);
+
+        }
 
 
         function drawBoxes() {
@@ -706,7 +731,6 @@
             updateOpacityLinks();
             updateOpacityLabelLinks();
             updateOpacityLabelBoxes();
-            $scope.initZoom();
         }
 
 
@@ -716,13 +740,12 @@
         var w = 1700,
             h = 800;
 
-        $scope.transform = { x: 0, y: 0, k: 1 };
 
         var chartWidth = w;
         var chartHeight = h;
 
 
-        var svg = d3.select("div.lvl1").append("svg")
+        var svg = d3.select("div.lvl1Svg").append("svg")
             .attr("width", w)
             .attr("height", h);
 
@@ -762,19 +785,22 @@
             link.dates_application.start.setHours(0);
             link.dates_application.end = new Date(link.dates_application.end);
             link.dates_application.end.setHours(0);
-
+            
             return link;
         });
-
-
-
+        
+        
+        
         //Create the zoom behavior to set for the draw
         var zoom = d3.zoom().on('zoom', zoomed);
-
+        
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-            $scope.transform = d3.event.transform;
-            g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
+            $scope.sliders.transform.k = d3.event.transform.k;
+            $scope.sliders.transform.x = d3.event.transform.x;
+            $scope.sliders.transform.y = d3.event.transform.y;
+            g.attr("transform", "translate(" + $scope.sliders.transform.x + "," + $scope.sliders.transform.y + ")scale(" + $scope.sliders.transform.k + ")");
+            $scope.$applyAsync();
         }
 
         svg.call(zoom);
@@ -805,16 +831,16 @@
 
             var scale = Math.min(w / (xMax - xMin + 100), h / (yMax - yMin + 100));
 
-            $scope.transform.x= -xMin + 50;
-            $scope.transform.y= -yMin + 50;
-            $scope.transform.k= scale ;
-            g.attr("transform", "translate(" + ($scope.transform.x) + "," + ($scope.transform.y) + ")scale(" + $scope.transform.k + ")");
+            $scope.sliders.transform.x = -xMin + 50;
+            $scope.sliders.transform.y = -yMin + 50;
+            $scope.sliders.transform.k = scale;
+            svg.call(zoom.transform,d3.zoomIdentity.translate($scope.sliders.transform.x,$scope.sliders.transform.y).scale($scope.sliders.transform.k));
         }
-        
-        
+
+
         $scope.zoom = function (ratio) {
-            $scope.transform.k = ratio * $scope.transform.k;
-            g.attr("transform", "translate(" + $scope.transform.x + "," + $scope.transform.y + ")scale(" + $scope.transform.k + ")");
+            $scope.sliders.transform.k = ratio * $scope.sliders.transform.k;
+            svg.call(zoom.transform,d3.zoomIdentity.translate($scope.sliders.transform.x,$scope.sliders.transform.y).scale($scope.sliders.transform.k));
         }
 
 
@@ -903,11 +929,14 @@
             // d3.select(this).classed("active", false);
 
         }
+        
+        setTimeout(function() {
+            $scope.$broadcast('rzSliderForceRender')
+          },100);
 
         initLinks(links);
         initBoxes(boxes);
         initLabelBoxes(boxes);
-       // initLabelLinks(links);
         initInterfaces(links)
         computeDisplayableObjects();
         redraw();
