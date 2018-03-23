@@ -384,13 +384,13 @@
         }
 
         $scope.filtersCategory = {
-            'backoffice':false,
-            'distribution':false,
-            'mrp':false
+            'backoffice': false,
+            'distribution': false,
+            'mrp': false
         };
 
-        $scope.toogleFilter = function(category) {
-            $scope.filtersCategory[category] = ! $scope.filtersCategory[category];
+        $scope.toogleFilter = function (category) {
+            $scope.filtersCategory[category] = !$scope.filtersCategory[category];
             computeDisplayableObjects();
             redraw();
         }
@@ -435,7 +435,7 @@
                 } else {
                     box.display = false;
                 }
-                if($scope.filtersCategory[box.cat]){
+                if ($scope.filtersCategory[box.cat]) {
                     box.display = false;
                 }
                 return box;
@@ -489,8 +489,8 @@
                 .attr('width', function (box) { return box.width; })
                 .attr('height', function (box) { return box.height; })
                 .call(drag)
-                .on('mouseover',highlightBox)
-                .on('mouseleave',resetHightLight);;
+                .on('mouseover', highlightBox)
+                .on('mouseleave', resetHightLight);;
 
 
             boxElements.each(function (d) {
@@ -507,8 +507,8 @@
                 .attr('x', function (box) { return box.coord.x1 + box.width / 2 - 26; })
                 .attr('y', function (box) { return box.coord.y1 + 10; })
                 .attr("xlink:href", function (d) { return "content/images/" + d.img }).classed('icoBox', 'true')
-                .on('mouseover',highlightBox)
-                .on('mouseleave',resetHightLight);;
+                .on('mouseover', highlightBox)
+                .on('mouseleave', resetHightLight);;
 
 
         }
@@ -557,53 +557,64 @@
 
         function highlightLink(d) {
             g.selectAll('.link')
-                .filter(function(link) {
-                    return link.name == d.name;
+                .filter(function (link) {
+                    return link.id == d.id;
                 })
-                .attr('stroke-width',5);
+                .attr('stroke-width', 10);
 
             g.selectAll(".link")
-                .filter(function(link) {
-                    return link.name !== d.name;
+                .filter(function (link) {
+                    return link.id !== d.id;
                 })
-                .attr('opacity',0.3);
+                .each(function (d) {
+                    this.classList.add('altered');
+                });
             g.selectAll(".box")
-                .filter(function(box) {
-                    if(box.name !== d.source.name && box.name !== d.target.name) {
+                .filter(function (box) {
+                    if (box.name !== d.source.name && box.name !== d.target.name) {
                         return true;
                     }
                     return false;
-                })
-                .attr('opacity',0.3);
+                }).each(function (d) {
+                    this.classList.add('altered');
+                });
 
         }
 
         function highlightBox(d) {
             var linked = {};
             g.selectAll(".link")
-                .filter(function(link) {
-                    if(d.name !== link.source.name && d.name !== link.target.name) {
+                .filter(function (link) {
+                    if (d.name !== link.source.name && d.name !== link.target.name) {
                         return true;
                     }
                     linked[link.target.name] = true;
                     linked[link.source.name] = true;
                     return false;
                 })
-                .attr('opacity',0.3);
+                .each(function (d) {
+                    this.classList.add('altered');
+                });
             g.selectAll(".box")
-                .filter(function(box) {
+                .filter(function (box) {
                     return box.name !== d.name && !linked[box.name];
                 })
-                .attr('opacity',0.3);
+                .each(function (d) {
+                    this.classList.add('altered');
+                });
 
         }
 
         function resetHightLight(d) {
-           g.selectAll(".link")
-                .attr('opacity',1)
-                .attr('stroke-width',3);
+            g.selectAll(".link")
+                .attr('stroke-width', 3)
+                .each(function (d) {
+                    this.classList.remove('altered');
+                });
             g.selectAll(".box")
-                .attr('opacity',1);
+                .each(function (d) {
+                    this.classList.remove('altered');
+                });
 
         }
 
@@ -643,8 +654,8 @@
                 .attr("marker-end", "url(#marker_arrow)")
                 .attr('stroke', 'black')
                 .attr('stroke-width', '3')
-                .on('mouseover',highlightLink)
-                .on('mouseleave',resetHightLight);
+                .on('mouseover', highlightLink)
+                .on('mouseleave', resetHightLight);
 
 
         }
@@ -667,8 +678,8 @@
                 .attr("fill", "White")
                 .style("font", "normal 18px Arial")
                 .attr("dy", ".35em").text(function (d) { return d.name; })
-                .on('mouseover',highlightBox)
-                .on('mouseleave',resetHightLight);;
+                .on('mouseover', highlightBox)
+                .on('mouseleave', resetHightLight);;
         }
 
 
