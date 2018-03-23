@@ -9,18 +9,27 @@
             <i class="material-icons" ng-click="zoom(1.1)">zoom_in</i>
             <i class="material-icons" ng-click="zoom(0.9)">zoom_out</i>
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-sm-11 lvl1Svg">
         </div>
         <div class="col-sm-1 sliderZoom">
+            <div>
+                <i class="material-icons zoomOut" ng-click="zoomOut()">remove_circle</i>
+            </div>
             <rzslider rz-slider-model="sliders.transform.k" rz-slider-options="zoomOptions"></rzslider>
+            <div>
+                    <i class="material-icons zoomIn" ng-click="zoomIn()">add_circle</i>
+            </div>
         </div>
     </div>
     <ul class="legend">
-        <li><span class="distribution"></span> Distribution</li>
-        <li><span class="mrp"></span> Manufacturing Resource Planning</li>
-        <li><span class="backoffice"></span> Back Office</li>
+        <li>
+            <span class="distribution"></span> Distribution</li>
+        <li>
+            <span class="mrp"></span> Manufacturing Resource Planning</li>
+        <li>
+            <span class="backoffice"></span> Back Office</li>
     </ul>
 </div>

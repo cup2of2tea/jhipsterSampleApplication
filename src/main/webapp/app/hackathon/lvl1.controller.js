@@ -13,7 +13,7 @@
                 {
                     "id": "1",
                     "name": "Back-Office",
-                    "img" : "ico_backoffice.png",
+                    "img": "ico_backoffice.png",
                     "coord": {
                         "x": "627",
                         "y": "23"
@@ -29,7 +29,7 @@
                 {
                     "id": "2",
                     "name": "Manufacturing ERP",
-                    "img" : "ico_manufactoring.png",
+                    "img": "ico_manufactoring.png",
                     "coord": {
                         "x": "962",
                         "y": "94"
@@ -45,7 +45,7 @@
                 {
                     "id": "3",
                     "name": "TMS",
-                    "img" : "ico_distribution.png",
+                    "img": "ico_distribution.png",
                     "coord": {
                         "x": "291",
                         "y": "220"
@@ -61,7 +61,7 @@
                 {
                     "id": "4",
                     "name": "WMS",
-                    "img" : "ico_distribution.png",
+                    "img": "ico_distribution.png",
                     "coord": {
                         "x": "533",
                         "y": "357"
@@ -77,7 +77,7 @@
                 {
                     "id": "5",
                     "name": "Legacy WMS",
-                    "img" : "ico_distribution.png",
+                    "img": "ico_distribution.png",
                     "coord": {
                         "x": "904",
                         "y": "508"
@@ -93,7 +93,7 @@
                 {
                     "id": "6",
                     "name": "Legacy TMS",
-                    "img" : "ico_distribution.png",
+                    "img": "ico_distribution.png",
                     "coord": {
                         "x": "382",
                         "y": "170"
@@ -109,7 +109,7 @@
                 {
                     "id": "7",
                     "name": "Legacy Back-Office",
-                    "img" : "ico_backoffice.png",
+                    "img": "ico_backoffice.png",
                     "coord": {
                         "x": "551",
                         "y": "508"
@@ -369,9 +369,23 @@
             }
         };
 
+        $scope.ignoreEvent = false;
+
+
+        $scope.zoomIn = function() {
+            $scope.sliders.transform.k = Math.min(4,Math.floor($scope.sliders.transform.k+1));
+            svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
+
+        }
+        $scope.zoomOut = function() {
+            $scope.sliders.transform.k = Math.max(0.5,Math.ceil($scope.sliders.transform.k-1));
+            svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
+
+        }
+
         $scope.zoomOptions = {
             vertical: true,
-            floor: 0,
+            floor: 0.5,
             rightToLeft: true,
             ceil: 4,
             precision: 2,
@@ -383,7 +397,7 @@
                 } else {
                     $('div.sliderZoom .rz-tick-value').removeClass('highlight');
                 }
-                svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
+                svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k),true);
             },
             ticksArray: [1.2, 2, 3, 4],
             translate: function (d, sliderId, label) {
@@ -459,21 +473,21 @@
                 .call(drag);
 
 
-                boxElements.each(function(d){
-                    this.classList.add(d.cat);
-                });
-                
-                
-                boxElements = g.selectAll("image")
+            boxElements.each(function (d) {
+                this.classList.add(d.cat);
+            });
+
+
+            boxElements = g.selectAll("image")
                 .data(boxes)
                 .enter()
                 .append('image')
                 .attr('width', 53)
                 .attr('height', 43)
-                .attr('x', function (box) { return box.coord.x1+box.width/2-26; })
+                .attr('x', function (box) { return box.coord.x1 + box.width / 2 - 26; })
                 .attr('y', function (box) { return box.coord.y1 + 10; })
-                .attr("xlink:href", function(d){return "content/images/"+d.img}) .classed('icoBox', 'true');
-                
+                .attr("xlink:href", function (d) { return "content/images/" + d.img }).classed('icoBox', 'true');
+
 
         }
 
@@ -628,7 +642,9 @@
                 }).attr('width', 30)
                 .attr('height', 30).attr("fill", "White")
                 .classed("gInts", true).attr('stroke', 'black').style("stroke-dasharray", ("3, 3"))
+                .attr('display', 'inline')
                 .transition()
+                .duration(500)
                 .attr('opacity', function (link) {
                     if (link.displayBox) {
                         return 1;
@@ -636,6 +652,7 @@
                         return 0;
                     }
                 })
+                .transition()
                 .attr('display', function (link) {
                     if (link.displayBox) {
                         return 'inline';
@@ -654,7 +671,10 @@
 
         function updateOpacityBoxes() {
             g.selectAll('.box')
+                .attr('display', 'inline')
+
                 .transition()
+                .duration(500)
                 .attr('opacity', function (box) {
                     if (box.display) {
                         return 1;
@@ -662,6 +682,8 @@
                         return 0;
                     }
                 })
+
+                .transition()
                 .attr('display', function (box) {
                     if (box.display) {
                         return 'inline';
@@ -673,7 +695,10 @@
 
         function updateOpacityLinks() {
             g.selectAll('.link')
+                .attr('display', 'inline')
+
                 .transition()
+                .duration(500)
                 .attr('opacity', function (link) {
                     if (link.display) {
                         return 1;
@@ -681,6 +706,8 @@
                         return 0;
                     }
                 })
+
+                .transition()
                 .attr('display', function (link) {
                     if (link.display) {
                         return 'inline';
@@ -692,7 +719,10 @@
 
         function updateOpacityLabelLinks() {
             g.selectAll(".gLink")
+                .attr('display', 'inline')
+
                 .transition()
+                .duration(500)
                 .attr('opacity', function (link) {
                     if (link.display) {
                         return 1;
@@ -700,6 +730,8 @@
                         return 0;
                     }
                 })
+
+                .transition()
                 .attr('display', function (link) {
                     if (link.display) {
                         return 'inline';
@@ -711,7 +743,10 @@
 
         function updateOpacityLabelBoxes() {
             g.selectAll(".gBox")
-            .transition()
+                .attr('display', 'inline')
+
+                .transition()
+                .duration(500)
                 .attr('opacity', function (box) {
                     if (box.display) {
                         return 1;
@@ -719,6 +754,7 @@
                         return 0;
                     }
                 })
+                .transition()
                 .attr('display', function (box) {
                     if (box.display) {
                         return 'inline';
@@ -726,7 +762,7 @@
                         return 'none';
                     }
                 });
-            
+
             g.selectAll(".icoBox").attr('display', function (box) {
                 if (box.display) {
                     return 'inline';
@@ -738,7 +774,10 @@
 
         function updateOpacityInterfaces() {
             g.selectAll(".gInts")
+                .attr('display', 'inline')
+
                 .transition()
+                .duration(500)
                 .attr('opacity', function (link) {
                     if (link.displayBox) {
                         return 1;
@@ -746,6 +785,8 @@
                         return 0;
                     }
                 })
+
+                .transition()
                 .attr('display', function (link) {
                     if (link.displayBox) {
                         return 'inline';
@@ -778,11 +819,11 @@
         function drawLabelBoxes() {
             g.selectAll(".gBox")
                 .attr('x', function (box) { return box.coord.x1 + box.width / 2; })
-                .attr('y', function (box) { return box.coord.y1 + box.height -20 });
-            
+                .attr('y', function (box) { return box.coord.y1 + box.height - 20 });
+
             g.selectAll(".icoBox")
-            .attr('x', function (box) { return box.coord.x1+box.width/2-26; })
-            .attr('y', function (box) { return box.coord.y1 + 10; });
+                .attr('x', function (box) { return box.coord.x1 + box.width / 2 - 26; })
+                .attr('y', function (box) { return box.coord.y1 + 10; });
         }
 
 
@@ -857,9 +898,9 @@
 
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
-            $scope.sliders.transform.k = d3.event.transform.k;
             $scope.sliders.transform.x = d3.event.transform.x;
             $scope.sliders.transform.y = d3.event.transform.y;
+            $scope.sliders.transform.k = d3.event.transform.k;
             links = links.map(function (link) {
                 if ($scope.sliders.transform.k >= 1.2) {
                     link.displayBox = true;

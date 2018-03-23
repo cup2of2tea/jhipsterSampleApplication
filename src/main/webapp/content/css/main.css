@@ -277,10 +277,25 @@ div.lvl1 svg {
     border: 1px solid black;
 }
 
-div.sliderZoom {
+div.lvl1 div.sliderZoom {
     height: 300px;
+    padding-left: 60px;
+    margin-top: 200px;
+    font-size: 20px;
 }
 
+div.lvl1 div.sliderZoom i {
+    font-size: 40px;
+    margin-left: 2px;
+}
+
+div.lvl1 div.sliderZoom i.zoomIn{
+    color: rgb(89,89,161);
+}
+
+div.lvl1 div.sliderZoom i.zoomOut{
+    color: rgb(175,175,175);
+}
 
 /* ==========================================================================
 entity tables helpers
