@@ -295,6 +295,18 @@ div.lvl1 div.sliderZoom i.zoomOut{
     color: rgb(175,175,175);
 }
 
+div.lvl1  span.rz-bar.rz-selection {
+    background-color: rgb(89,89,161);
+}
+
+div.lvl1 span.rz-bar {
+    background-color: white;
+}
+
+div.lvl1 .rz-tick {
+    background-color: rgb(89,89,161);
+}
+
 /* ==========================================================================
 entity tables helpers
 ========================================================================== */

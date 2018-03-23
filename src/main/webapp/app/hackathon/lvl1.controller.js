@@ -372,13 +372,13 @@
         $scope.ignoreEvent = false;
 
 
-        $scope.zoomIn = function() {
-            $scope.sliders.transform.k = Math.min(4,Math.floor($scope.sliders.transform.k+1));
+        $scope.zoomIn = function () {
+            $scope.sliders.transform.k = Math.min(4, Math.floor($scope.sliders.transform.k + 1));
             svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
 
         }
-        $scope.zoomOut = function() {
-            $scope.sliders.transform.k = Math.max(0.5,Math.ceil($scope.sliders.transform.k-1));
+        $scope.zoomOut = function () {
+            $scope.sliders.transform.k = Math.max(0.5, Math.ceil($scope.sliders.transform.k - 1));
             svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
 
         }
@@ -397,7 +397,7 @@
                 } else {
                     $('div.sliderZoom .rz-tick-value').removeClass('highlight');
                 }
-                svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k),true);
+                svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k), true);
             },
             ticksArray: [1.2, 2, 3, 4],
             translate: function (d, sliderId, label) {
@@ -451,7 +451,9 @@
                 onChange: function () {
                     computeDisplayableObjects();
                     redraw();
-                }
+                },
+                showSelectionBar: true,
+
             }
         };
 
@@ -796,6 +798,30 @@
                 });
         }
 
+        function updateOpacityIcons() {
+            g.selectAll("image")
+                .attr('display', 'inline')
+
+                .transition()
+                .duration(500)
+                .attr('opacity', function (box) {
+                    if (box.display) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
+
+                .transition()
+                .attr('display', function (box) {
+                    if (box.display) {
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                });
+        }
+
         function drawLabelLinks() {
             g.selectAll(".gLink")
                 .attr("x", function (d) {
@@ -832,6 +858,7 @@
             updateOpacityLinks();
             updateOpacityLabelLinks();
             updateOpacityLabelBoxes();
+            updateOpacityIcons();
         }
 
 
