@@ -383,6 +383,18 @@
 
         }
 
+        $scope.filtersCategory = {
+            'backoffice':false,
+            'distribution':false,
+            'mrp':false
+        };
+
+        $scope.toogleFilter = function(category) {
+            $scope.filtersCategory[category] = ! $scope.filtersCategory[category];
+            computeDisplayableObjects();
+            redraw();
+        }
+
         $scope.zoomOptions = {
             vertical: true,
             floor: 0.5,
@@ -423,12 +435,15 @@
                 } else {
                     box.display = false;
                 }
+                if($scope.filtersCategory[box.cat]){
+                    box.display = false;
+                }
                 return box;
             });
             links = links.map(function (link) {
                 if (between(link.dates_application.start, link.dates_application.end, $scope.valueDate)
-                    && between(link.source.dates_application.start, link.source.dates_application.end, $scope.valueDate)
-                    && between(link.target.dates_application.start, link.target.dates_application.end, $scope.valueDate)
+                    && link.source.display
+                    && link.target.display
                 ) {
                     link.display = true;
                 } else {
