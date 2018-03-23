@@ -651,11 +651,10 @@
                     return 'M ' + x1 + ',' + y1 + ' L ' + x2 + ',' + y2 + ''
                 })
                 .classed('link', true)
+                .attr("marker-start","url(#marker_arrowR)")
                 .attr("marker-end", "url(#marker_arrow)")
                 .attr('stroke', 'black')
-                .attr('stroke-width', '3')
-                .on('mouseover', highlightLink)
-                .on('mouseleave', resetHightLight);
+                .attr('stroke-width', '3');
 
 
         }
@@ -923,7 +922,7 @@
 
         var vm = this;
         var w = document.body.clientWidth  * 11 / 12 - 100,
-            h = 800;
+            h = document.body.clientHeight - 205;
 
 
         var chartWidth = w;
@@ -957,6 +956,19 @@
 
             return box;
         });
+
+        var lLinks = data.links.length;
+
+        for(var i = 0; i < lLinks; i++) {
+            var newLink = data.links[i];
+            var tmpSource = angular.copy(newLink.source);
+            var tmpTarget = angular.copy(newLink.target);
+
+            newLink.source = angular.copy(tmpTarget);
+            newLink.target = angular.copy(tmpSource);
+            data.links.push(newLink);
+        }
+        console.log(data.links);
 
         var links = data.links.map(function (link) {
             link.source = boxes.find(function (box) {
@@ -1046,6 +1058,7 @@
             { id: 0, name: 'circle', path: 'M 0, 0  m -5, 0  a 5,5 0 1,0 10,0  a 5,5 0 1,0 -10,0', viewbox: '-6 -6 12 12' }
             , { id: 1, name: 'square', path: 'M 0,0 m -5,-5 L 5,-5 L 5,5 L -5,5 Z', viewbox: '-5 -5 10 10' }
             , { id: 2, name: 'arrow', path: 'M 0,0 m -5,-5 L 5,0 L -5,5 Z', viewbox: '-5 -5 10 10' }
+            , { id: 3, name: 'arrowR', path: 'M 0,0 m -5,-5 L 5,0 L -5,5 Z', viewbox: '-5 -5 10 10' }
             , { id: 2, name: 'stub', path: 'M 0,0 m -1,-5 L 1,-5 L 1,5 L -1,5 Z', viewbox: '-1 -5 2 10' }
         ];
 
@@ -1059,7 +1072,10 @@
             .attr('markerHeight', 5)
             .attr('markerWidth', 5)
             .attr('markerUnits', 'strokeWidth')
-            .attr('orient', 'auto')
+            .attr('orient', function(d){
+                if(d.id==3) return 'auto-start-reverse';
+                return 'auto';
+            })
             .attr('refX', 0)
             .attr('refY', 0)
             .attr('viewBox', function (d) { return d.viewbox })
