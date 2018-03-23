@@ -133,28 +133,7 @@
                         "start": "2018-01-01",
                         "end": "2019-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Material",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Cost center",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Business partners",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Shipping Order",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Invoice",
-                            "master": "false"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l2",
@@ -165,24 +144,7 @@
                         "start": "2018-01-01",
                         "end": "2020-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Outbound delivery",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Inspection lot",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Customer creation and update",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Batch Master",
-                            "master": "true"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l3",
@@ -193,24 +155,7 @@
                         "start": "2018-01-01",
                         "end": "2020-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Stock movement",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Inventory report",
-                            "master": "false"
-                        },
-                        {
-                            "name": "BOM",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Batch Master",
-                            "master": "true"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l4",
@@ -221,20 +166,7 @@
                         "start": "2018-01-01",
                         "end": "2020-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Shipment",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Purchase order",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Logistics routes",
-                            "master": "true"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l5",
@@ -245,32 +177,7 @@
                         "start": "2019-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Material",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Cost center",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Business partners",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Shipping Order",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Internal orders",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Inbound Delivery",
-                            "master": "false"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l6",
@@ -281,24 +188,7 @@
                         "start": "2020-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Outbound delivery",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Inspection lot",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Customer creation and update",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Batch Master",
-                            "master": "true"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l7",
@@ -309,24 +199,7 @@
                         "start": "2019-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Stock movement",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Inventory report",
-                            "master": "false"
-                        },
-                        {
-                            "name": "BOM",
-                            "master": "true"
-                        },
-                        {
-                            "name": "Batch Master",
-                            "master": "true"
-                        }
-                    ]
+                    "img":"lien8.PNG"
                 },
                 {
                     "id": "l8",
@@ -337,20 +210,7 @@
                         "start": "2019-01-01",
                         "end": "2021-12-31"
                     },
-                    "interfaces": [
-                        {
-                            "name": "Shipment",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Purchase order",
-                            "master": "false"
-                        },
-                        {
-                            "name": "Logistics routes",
-                            "master": "true"
-                        }
-                    ]
+                   "img":"lien8.PNG"
                 }
             ]
 
@@ -449,7 +309,12 @@
                 } else {
                     link.display = false;
                 }
-             //   link.displayBox=link.display;
+                if ($scope.sliders.transform.k >= 1.2) {
+                    link.displayBox = true;
+                } else {
+                    link.displayBox = false;
+                }
+               link.displayBox=link.display&&link.displayBox;
                 return link;
             });
         }
@@ -498,7 +363,7 @@
             });
 
 
-            boxElements = g.selectAll("image")
+            boxElements = g.selectAll(".icoBox")
                 .data(boxes)
                 .enter()
                 .append('image')
@@ -717,6 +582,48 @@
                 })
                 .attr('stroke-width', 1);
 
+            
+           
+            
+            g.selectAll(".icoInt")
+            .data(links)
+            .enter()
+            .append('image')
+            .attr('width', function (link) {return link.int.width-8})
+            .attr('height', function (link) {return link.int.height-8})
+            .attr("x", function (d) {
+
+            	 return (d.coord.x1 + (d.coord.x2 - d.coord.x1 -d.int.width) / 2+4);
+            })
+                .attr("y", function (d) {
+               
+                    return (d.coord.y1 + (d.coord.y2 - d.coord.y1-d.int.height) / 2+4);
+                })
+            .attr("xlink:href", function (d) { return "content/images/" + d.img }).classed('icoInt', 'true')
+          .attr('display', 'none')
+//                .transition()
+//                .duration(500)
+               .attr('opacity',0) ;
+                		//function (link) {
+//                	console.log(link.displayBox);
+//                    if (link.displayBox) {
+//                        return 1;
+//                    } else {
+//                        return 0;
+//                    }
+//                })
+//                .transition()
+//                .attr('display', function (link) {
+//                	console.log(link.displayBox);
+//                	if (link.displayBox) {
+//                		return 'inline';
+//                	} else {
+//                		return 'none';
+//                	}
+//                });
+            
+          
+            
         }
 
 
@@ -854,6 +761,30 @@
                         return 'none';
                     }
                 });
+            
+            g.selectAll(".icoInt")
+            .attr('display', 'inline')
+
+            .transition()
+            .duration(500)
+            .attr('opacity', function (link) {
+                if (link.displayBox&&link.display) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
+
+            .transition()
+            .duration(0)
+            .attr('display', function (link) {
+                if (link.displayBox&&link.display) {
+                    return 'inline';
+                } else {
+                    return 'none';
+                }
+            });
+            
         }
 
 
@@ -907,6 +838,16 @@
                    return (d.coord.y1 + (d.coord.y2 - d.coord.y1-d.int.height) / 2);
                })
         	
+               g.selectAll(".icoInt").attr("x", function (d) {
+
+              	 return (d.coord.x1 + (d.coord.x2 - d.coord.x1 -d.int.width) / 2+4);
+              })
+                  .attr("y", function (d) {
+                 
+                      return (d.coord.y1 + (d.coord.y2 - d.coord.y1-d.int.height) / 2+4);
+                  })
+               
+               
         }
 
         function redraw() {
@@ -974,6 +915,7 @@
             link.int = {};
             link.int.width = 100;
             link.int.height = 100;
+           
 
             return link;
         });
@@ -1133,11 +1075,11 @@
             $scope.$broadcast('rzSliderForceRender')
         }, 100);
 
+        computeDisplayableObjects();
         initLinks(links);
         initBoxes(boxes);
         initLabelBoxes(boxes);
         initInterfaces(links)
-        computeDisplayableObjects();
         redraw();
     }
 })();
