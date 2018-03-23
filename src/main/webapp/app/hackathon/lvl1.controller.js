@@ -365,16 +365,26 @@
         $scope.zoomOptions = {
             vertical: true,
             floor: 0,
+            rightToLeft: true,
             ceil: 4,
             precision: 2,
             step: 0.1,
+            showSelectionBar: true,
             onChange: function () {
-                svg.call(zoom.transform,d3.zoomIdentity.translate($scope.sliders.transform.x,$scope.sliders.transform.y).scale($scope.sliders.transform.k));
+                if ($scope.sliders.transform.k >= 1.2) {
+                    $('div.sliderZoom .rz-tick-value').addClass('highlight');
+                } else {
+                    $('div.sliderZoom .rz-tick-value').removeClass('highlight');
+                }
+                svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
             },
-            ticksArray: [1.2],
-            translate: function(d) {
-                if(d >= 1.2)
-                return 'Level 2';
+            ticksArray: [1.2, 2, 3, 4],
+            translate: function (d, sliderId, label) {
+                if (label !== 'tick-value' || d >= 2) {
+                    return '';
+                }
+                if (d >= 1.2)
+                    return 'Level 2';
                 else return 'Level 1';
             },
             showTicksValues: true
@@ -597,6 +607,21 @@
                 }).attr('width', 30)
                 .attr('height', 30).attr("fill", "White")
                 .classed("gInts", true).attr('stroke', 'black').style("stroke-dasharray", ("3, 3"))
+                .transition()
+                .attr('opacity', function (link) {
+                    if (link.displayBox) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
+                .attr('display', function (link) {
+                    if (link.displayBox) {
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                })
                 .attr('stroke-width', 1);
 
         }
@@ -608,6 +633,14 @@
 
         function updateOpacityBoxes() {
             g.selectAll('.box')
+                .transition()
+                .attr('opacity', function (box) {
+                    if (box.display) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
                 .attr('display', function (box) {
                     if (box.display) {
                         return 'inline';
@@ -619,22 +652,14 @@
 
         function updateOpacityLinks() {
             g.selectAll('.link')
-                .attr('display', function (link) {
+                .transition()
+                .attr('opacity', function (link) {
                     if (link.display) {
-                        return 'inline';
+                        return 1;
                     } else {
-                        return 'none';
+                        return 0;
                     }
-                });
-            g.selectAll('.arrowLeft')
-                .attr('display', function (link) {
-                    if (link.display) {
-                        return 'inline';
-                    } else {
-                        return 'none';
-                    }
-                });
-            g.selectAll('.arrowRight')
+                })
                 .attr('display', function (link) {
                     if (link.display) {
                         return 'inline';
@@ -646,6 +671,14 @@
 
         function updateOpacityLabelLinks() {
             g.selectAll(".gLink")
+                .transition()
+                .attr('opacity', function (link) {
+                    if (link.display) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
                 .attr('display', function (link) {
                     if (link.display) {
                         return 'inline';
@@ -657,8 +690,35 @@
 
         function updateOpacityLabelBoxes() {
             g.selectAll(".gBox")
+            .transition()
+                .attr('opacity', function (box) {
+                    if (box.display) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
                 .attr('display', function (box) {
                     if (box.display) {
+                        return 'inline';
+                    } else {
+                        return 'none';
+                    }
+                });
+        }
+
+        function updateOpacityInterfaces() {
+            g.selectAll(".gInts")
+                .transition()
+                .attr('opacity', function (link) {
+                    if (link.displayBox) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
+                .attr('display', function (link) {
+                    if (link.displayBox) {
                         return 'inline';
                     } else {
                         return 'none';
@@ -752,20 +812,30 @@
             link.dates_application.start.setHours(0);
             link.dates_application.end = new Date(link.dates_application.end);
             link.dates_application.end.setHours(0);
-            
+            link.displayBox = false;
+
             return link;
         });
-        
-        
-        
+
+
+
         //Create the zoom behavior to set for the draw
         var zoom = d3.zoom().on('zoom', zoomed);
-        
+
         //Function called on the zoom event. It translate the draw on the zoommed point and scale with a certain factor
         function zoomed() {
             $scope.sliders.transform.k = d3.event.transform.k;
             $scope.sliders.transform.x = d3.event.transform.x;
             $scope.sliders.transform.y = d3.event.transform.y;
+            links = links.map(function (link) {
+                if ($scope.sliders.transform.k >= 1.2) {
+                    link.displayBox = true;
+                } else {
+                    link.displayBox = false;
+                }
+                return link;
+            });
+            updateOpacityInterfaces();
             g.attr("transform", "translate(" + $scope.sliders.transform.x + "," + $scope.sliders.transform.y + ")scale(" + $scope.sliders.transform.k + ")");
             $scope.$applyAsync();
         }
@@ -801,13 +871,13 @@
             $scope.sliders.transform.x = -xMin + 50;
             $scope.sliders.transform.y = -yMin + 50;
             $scope.sliders.transform.k = scale;
-            svg.call(zoom.transform,d3.zoomIdentity.translate($scope.sliders.transform.x,$scope.sliders.transform.y).scale($scope.sliders.transform.k));
+            svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
         }
 
 
         $scope.zoom = function (ratio) {
             $scope.sliders.transform.k = ratio * $scope.sliders.transform.k;
-            svg.call(zoom.transform,d3.zoomIdentity.translate($scope.sliders.transform.x,$scope.sliders.transform.y).scale($scope.sliders.transform.k));
+            svg.call(zoom.transform, d3.zoomIdentity.translate($scope.sliders.transform.x, $scope.sliders.transform.y).scale($scope.sliders.transform.k));
         }
 
 
@@ -896,10 +966,10 @@
             // d3.select(this).classed("active", false);
 
         }
-        
-        setTimeout(function() {
+
+        setTimeout(function () {
             $scope.$broadcast('rzSliderForceRender')
-          },100);
+        }, 100);
 
         initLinks(links);
         initBoxes(boxes);
