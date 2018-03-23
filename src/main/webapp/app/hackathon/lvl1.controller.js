@@ -922,7 +922,7 @@
 
 
         var vm = this;
-        var w = 1700,
+        var w = document.body.clientWidth  * 11 / 12 - 100,
             h = 800;
 
 
