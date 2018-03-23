@@ -34,11 +34,11 @@
         </div>
     </div>
     <ul class="legend">
-        <li ng-click="toogleFilter('distribution')">
+        <li ng-class="{'filtered':filtersCategory['distribution']}" ng-click="toogleFilter('distribution')">
             <span class="distribution"></span> Distribution</li>
-        <li ng-click="toogleFilter('mrp')">
+        <li ng-class="{'filtered':filtersCategory['mrp']}" ng-click="toogleFilter('mrp')">
             <span class="mrp"></span> Manufacturing Resource Planning</li>
-        <li ng-click="toogleFilter('backoffice')">
+        <li ng-class="{'filtered':filtersCategory['backoffice']}" ng-click="toogleFilter('backoffice')">
             <span class="backoffice"></span> Back Office</li>
     </ul>
 </div>
